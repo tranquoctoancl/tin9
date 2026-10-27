@@ -1,0 +1,3453 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bài thi trực tuyến – Tin học 9</title>
+  <style>
+:root{
+  --paper:#fffdf6;--line:#d9ecff;--margin:#f5b3c7;--ink:#1f2457;
+  --purple:#5b35c8;--pink:#ef4b8b;--blue:#2386d8;--green:#2fa66a;
+  --orange:#f19a24;--red:#d62828;--soft-red:#fff0f0;--soft-green:#ecfff5;
+  --soft-blue:#eef7ff;--soft-yellow:#fff8dc;
+  --shadow:0 12px 24px rgba(31,36,87,.16);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#eaf2fb;color:var(--ink);
+     font-family:"Comic Sans MS","Segoe Print","Marker Felt",cursive}
+.sheet{width:min(1100px,calc(100% - 22px));margin:16px auto;
+       padding:24px 28px 26px 72px;border:4px solid #f5efe4;border-radius:22px;
+       box-shadow:var(--shadow);
+       background:
+         radial-gradient(circle at 28px 94px, transparent 0 13px,#dacfc2 14px,#dacfc2 16px,transparent 17px),
+         radial-gradient(circle at 28px 230px, transparent 0 13px,#dacfc2 14px,#dacfc2 16px,transparent 17px),
+         radial-gradient(circle at 28px 366px, transparent 0 13px,#dacfc2 14px,#dacfc2 16px,transparent 17px),
+         linear-gradient(90deg,transparent 0 51px,var(--margin) 52px,var(--margin) 54px,transparent 55px),
+         repeating-linear-gradient(to bottom,var(--paper) 0,var(--paper) 34px,var(--line) 35px,var(--paper) 36px);
+       overflow:hidden}
+.header{position:relative;text-align:center;margin:2px 0 18px}
+.cloud{display:inline-block;min-width:min(790px,94%);padding:18px 30px 20px;
+       border:4px dashed #7b56d8;border-radius:46px;background:#fff;
+       box-shadow:0 5px 0 rgba(123,86,216,.13)}
+h1{margin:0;color:#3c248f;font-size:clamp(28px,4.6vw,56px);line-height:1;
+   letter-spacing:1px;text-shadow:2px 2px 0 #eee7ff}
+.ribbon{display:inline-block;margin-top:-8px;padding:10px 36px;border:3px solid #6ab7df;
+        border-radius:14px;background:#dff4ff;color:#243b71;font-size:22px;font-weight:900;
+        box-shadow:0 5px 0 rgba(35,134,216,.12)}
+.topbar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}
+.topbar.locked{display:none}
+.behavior-mode #examTopbar{display:none!important}
+.pill{border:3px solid rgba(255,255,255,.85);border-radius:16px;padding:10px 8px;min-height:56px;
+      display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-size:20px;
+      font-weight:900;box-shadow:0 5px 0 rgba(0,0,0,.12), inset 0 0 0 3px rgba(255,255,255,.18);
+      text-align:center;opacity:.42}
+.pill.done,.pill.active{opacity:1}
+.pill.active{outline:4px dashed rgba(91,53,200,.25);outline-offset:3px}
+.p1{background:#7d56d6}.p2{background:#2e95d6}.p3{background:#3aaa55}
+.screen{display:none}.screen.active{display:block;animation:fade .22s ease-out}
+@keyframes fade{from{opacity:.45;transform:translateY(8px)}to{opacity:1;transform:none}}
+.block{position:relative;display:grid;grid-template-columns:150px 1fr;gap:12px;margin:18px 0;align-items:stretch}
+.side-label{align-self:start;min-height:86px;padding:12px 8px;border:3px dashed rgba(255,255,255,.65);
+            border-radius:16px;color:#fff;text-align:center;font-size:22px;font-weight:900;line-height:1.12;
+            box-shadow:0 7px 0 rgba(0,0,0,.10), inset 0 0 0 3px rgba(255,255,255,.22);
+            text-shadow:2px 2px 0 rgba(0,0,0,.20)}
+.side-label .num{display:block;font-size:46px;line-height:.9;margin-bottom:4px}
+.purple{background:#7d56d6}.blue{background:#2e95d6}.green{background:#3aaa55}
+.content-box{padding:18px 18px 16px;border:3px dashed var(--purple);border-radius:20px;
+             background:rgba(255,255,255,.72)}
+.section-title{display:inline-block;margin:0 0 12px;padding:6px 18px;border:3px solid currentColor;
+               border-radius:999px;background:#fff;font-size:24px;font-weight:900;color:var(--pink)}
+p,li,label,input,select,textarea,button{font-family:inherit}
+p,li{font-size:20px;line-height:1.55;margin:0 0 9px}
+.important{color:var(--red);font-weight:900}
+.small{font-size:15px;line-height:1.35;color:#4f5688;margin-top:5px}
+.field{margin:10px 0}
+.field label{display:block;font-size:18px;font-weight:900;color:#3c248f;margin:0 0 5px}
+.inline-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+input[type="text"],input[type="email"],input[type="password"],select,textarea{
+  width:100%;border:3px solid #b9cef3;border-radius:14px;background:#fff;color:var(--ink);
+  font-size:19px;padding:10px 12px;outline:none;min-height:48px}
+textarea{min-height:88px;resize:vertical;line-height:1.45}
+input:focus,select:focus,textarea:focus{border-color:var(--purple);box-shadow:0 0 0 4px rgba(91,53,200,.12)}
+.question{margin:14px 0 18px;padding:14px 14px 16px;border:3px solid #f19a24;border-radius:18px;
+          background:#fffdf1;box-shadow:0 6px 0 rgba(0,0,0,.05)}
+.question h3{margin:0 0 10px;color:#3c248f;font-size:22px}
+.question .image-wrap{margin:6px 0 10px;text-align:center}
+.question .image-wrap img{max-width:100%;height:auto;border:2px dashed #d6c5e8;border-radius:12px;background:#fff;padding:4px}
+.section-block{margin-top:8px}
+.section-block h2{margin:0 0 8px;color:#243b71;font-size:24px}
+.section-block .section-desc{font-size:17px;color:#3c248f;margin-bottom:8px}
+.behavior-mode #exam .block{display:block}
+.behavior-mode #exam .side-label,
+.behavior-mode #exam .section-title,
+.behavior-mode #exam .section-block h2,
+.behavior-mode #exam .section-block .section-desc,
+.behavior-mode #exam .question h3,
+.behavior-mode #exam .content-box > .btns{display:none}
+.behavior-mode #exam .content-box{padding:14px;border-color:#2e95d6}
+.behavior-mode #exam .section-block{display:none}
+.behavior-mode #exam .section-block.behavior-active-section{display:block}
+.behavior-mode #exam .question{display:none}
+.behavior-mode #exam .question.behavior-active-question{display:block;margin:12px 0 0;animation:fade .18s ease-out}
+.behavior-mode #exam .question .image-wrap{margin-top:0}
+.behavior-slide-bar{display:none;margin:0 0 14px;padding:10px 12px;border:2px dashed #7d56d6;border-radius:14px;background:#f7f2ff}
+.behavior-mode .behavior-slide-bar{display:block}
+.behavior-slide-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.behavior-slide-left,.behavior-slide-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.behavior-slide-title{font-size:18px;font-weight:900;color:#3c248f}
+.behavior-slide-meta{display:none}
+.behavior-slide-actions{display:flex;flex-wrap:wrap;gap:8px}
+.behavior-slide-actions button,
+.behavior-slide-jump select,
+.behavior-slide-info,
+.behavior-slide-submit{border:2px solid #c8b6f2;border-radius:12px;background:#fff;color:#3c248f;
+                       padding:7px 11px;font-size:14px;font-weight:900;cursor:pointer;min-height:38px}
+.behavior-slide-actions button:disabled{opacity:.45;cursor:not-allowed}
+.behavior-slide-jump{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.behavior-slide-jump label{font-size:14px;font-weight:900;color:#3c248f}
+.behavior-slide-jump select{width:auto;min-width:150px;max-width:220px;padding-right:28px}
+.behavior-slide-info{border-color:#9fb2d8;background:#eef3ff;color:#243b71}
+.behavior-slide-submit{border-color:#49bd6b;background:#3aaa55;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.18)}
+.behavior-summary{display:none}
+.behavior-mode .behavior-summary.behavior-summary-active{display:block;animation:fade .18s ease-out}
+.behavior-summary-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.behavior-summary-head h2{margin:0;color:#243b71;font-size:25px}
+.behavior-summary-head p{margin:5px 0 0;color:#4f5688;font-size:16px}
+.behavior-summary-counts{display:flex;gap:8px;flex-wrap:wrap}
+.behavior-summary-count{padding:7px 11px;border:1px solid #b9cef3;border-radius:999px;background:#eef3ff;color:#243b71;font-size:14px;font-weight:900}
+.behavior-summary-count.missing{border-color:#f3c37a;background:#fff7e8;color:#8a4b08}
+.behavior-summary-list{display:grid;gap:9px}
+.behavior-summary-item{width:100%;display:grid;grid-template-columns:minmax(150px,.32fr) minmax(0,1fr) auto;align-items:center;gap:12px;padding:12px 13px;border:2px solid #d5d9f2;border-radius:13px;background:#fff;color:var(--ink);text-align:left;cursor:pointer}
+.behavior-summary-item:hover{border-color:#7d56d6;background:#faf8ff}
+.behavior-summary-question{font-size:16px;font-weight:900;color:#3c248f}
+.behavior-summary-answer{min-width:0;font-size:16px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
+.behavior-summary-status{display:inline-flex;align-items:center;justify-content:center;min-width:104px;padding:6px 9px;border-radius:999px;background:#e8f7ed;color:#166339;font-size:13px;font-weight:900}
+.behavior-summary-item.is-missing .behavior-summary-status{background:#fff0f0;color:#a12727}
+.behavior-summary-item.is-partial .behavior-summary-status{background:#fff7e8;color:#8a4b08}
+.behavior-summary-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:16px}
+.behavior-summary-submit{border:2px solid #49bd6b;border-radius:13px;background:#3aaa55;color:#fff;padding:11px 18px;font-size:17px;font-weight:900;cursor:pointer}
+.option-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:8px}
+.option-list label{display:block;border:2px dashed #d5d9f2;background:#fff;border-radius:13px;
+                   padding:9px 11px;font-size:19px;line-height:1.35;cursor:pointer;min-height:48px}
+.option-list input{width:auto;margin-right:8px;transform:scale(1.15)}
+.choice-card-key{font-weight:900}
+.image-choice-card .choice-card-text{display:none}
+.tf-option{min-width:0;margin:0;border:2px dashed #d5d9f2;border-radius:13px;background:#fff;padding:7px 9px 9px}
+.tf-option legend{padding:0 4px;color:#3c248f;font-size:18px;font-weight:900}
+.tf-option label{display:block;border:0;border-radius:9px;padding:5px 4px;font-size:17px}
+.tf-list-header{display:none}
+.tf-statement{min-width:0}
+.tf-letter{font-weight:900;color:#3c248f;margin-right:6px}
+.tf-choice-mark{display:none}
+.visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;
+                 overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.short-answer{display:grid;grid-template-columns:repeat(4,54px);gap:9px;margin-top:6px}
+.short-char{width:54px!important;min-height:56px!important;padding:8px 4px!important;text-align:center;
+            font-size:26px!important;font-weight:900}
+.essay-editor{overflow:hidden;border:3px solid #b9cef3;border-radius:14px;background:#fff}
+.essay-editor:focus-within{border-color:var(--purple);box-shadow:0 0 0 4px rgba(91,53,200,.12)}
+.essay-editor textarea{display:block;border:0;border-radius:0;box-shadow:none!important;min-height:132px}
+.essay-editor-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:7px 9px;
+                      border-top:1px solid #dbe6fa;background:#f8fbff}
+.essay-image-input{display:none}
+.essay-image-btn{border:1px solid #b9cef3;border-radius:999px;background:#fff;color:#3c248f;
+                 padding:6px 10px;font-size:14px;font-weight:900;cursor:pointer}
+.essay-image-btn:hover{border-color:var(--purple);background:#f4efff}
+.essay-image-note{color:#4f5688;font-size:13px;line-height:1.35}
+.essay-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.essay-preview:empty{display:none}
+.essay-preview figure{position:relative;width:94px;margin:0;padding:5px;border:1px solid #d5d9f2;border-radius:10px;background:#fff}
+.essay-preview img{display:block;width:82px;height:72px;object-fit:cover;border-radius:7px}
+.essay-preview figcaption{margin-top:4px;overflow:hidden;color:#4f5688;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.essay-preview-remove{position:absolute;top:-7px;right:-7px;width:22px;height:22px;border:1px solid #efb1b1;
+                      border-radius:50%;background:#fff;color:#b12525;font-size:14px;line-height:18px;cursor:pointer}
+.timer-box{position:fixed;top:84px;right:18px;z-index:60;display:none;min-width:154px;padding:9px 12px;
+           border:3px solid #6ab7df;border-radius:16px;background:#fff;color:#243b71;text-align:center;
+           box-shadow:0 8px 20px rgba(31,36,87,.2)}
+.timer-box.show{display:block}.timer-box.danger{border-color:#d65b5b;background:var(--soft-red);color:#932727}
+.timer-label{display:block;font-size:14px;font-weight:900}.timer-value{display:block;font-size:26px;font-weight:900;letter-spacing:1px}
+.proctor-box{position:fixed;top:168px;right:18px;z-index:59;display:none;width:230px;padding:9px;
+             border:3px solid #f1c232;border-radius:16px;background:rgba(255,255,255,.96);color:#243b71;
+             box-shadow:0 8px 20px rgba(31,36,87,.2)}
+.proctor-box.show{display:block}
+.proctor-title{font-size:13px;font-weight:900;margin:0 0 6px;color:#7a4b00}
+.proctor-frame{position:relative;overflow:hidden;border-radius:12px;background:#1b2333;aspect-ratio:4/3}
+.proctor-frame.popup-mode{display:none}
+.proctor-frame video,.proctor-frame canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.proctor-frame canvas{pointer-events:none}
+.proctor-status{margin-top:6px;font-size:12px;line-height:1.3;color:#4f5688}
+.proctor-status.bad{color:#932727;font-weight:900}
+.proctor-status.ok{color:#166339;font-weight:900}
+.proctor-actions{display:flex;gap:6px;margin-top:7px}
+.proctor-retry{width:100%;border:1px solid #caa13a;border-radius:10px;background:#fff8dc;color:#7a4b00;
+                padding:6px 8px;font-size:12px;font-weight:900;cursor:pointer}
+.proctor-retry:disabled{opacity:.55;cursor:not-allowed}
+.real-exam-note{margin:9px 0;padding:10px 12px;border:2px solid #d65b5b;border-radius:12px;
+                background:var(--soft-red);color:#932727;font-size:15px;font-weight:900;line-height:1.45}
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.btn{border:4px solid rgba(255,255,255,.78);border-radius:18px;color:#fff;font-size:20px;font-weight:900;
+     letter-spacing:.2px;padding:11px 17px;min-height:52px;cursor:pointer;text-decoration:none;
+     text-shadow:2px 2px 0 rgba(0,0,0,.25),0 0 7px rgba(0,0,0,.16);
+     box-shadow:0 7px 0 rgba(0,0,0,.18), inset 0 0 0 3px rgba(255,255,255,.20);
+     transition:.15s transform,.15s filter}
+.btn:hover{filter:brightness(1.03);transform:translateY(-1px)}
+.btn:active{transform:translateY(3px);box-shadow:0 4px 0 rgba(0,0,0,.18), inset 0 0 0 3px rgba(255,255,255,.20)}
+.btn:disabled{filter:grayscale(.35);opacity:.65;cursor:not-allowed;transform:none}
+.b1{background:#3aaa55}.b2{background:#1e80c8}.muted{background:#7f8aa8}
+.message{display:none;margin-top:12px;border:3px dashed #b6c3ef;border-radius:16px;background:#fff;
+         padding:12px 14px;font-size:19px;line-height:1.45}
+.message.show{display:block}
+.message.ok{border-color:#47ae70;background:var(--soft-green);color:#166339}
+.message.warn{border-color:#f19a24;background:var(--soft-yellow);color:#7a4b00}
+.message.bad{border-color:#d65b5b;background:var(--soft-red);color:#932727}
+.submit-status{font-size:22px;font-weight:900;text-align:center;padding:24px 16px;border-radius:18px;
+               border:3px dashed #b6c3ef;background:#fff;color:#3c248f;line-height:1.5;margin:14px 0}
+.submit-status.pending{border-color:#f19a24;background:var(--soft-yellow);color:#7a4b00}
+.submit-status.ok{border-color:#47ae70;background:var(--soft-green);color:#166339}
+.submit-status.bad{border-color:#d65b5b;background:var(--soft-red);color:#932727}
+.symbol-fab{position:fixed;right:18px;bottom:18px;width:60px;height:60px;border-radius:50%;
+            background:#7d56d6;color:#fff;border:4px solid #fff;
+            box-shadow:0 10px 22px rgba(31,36,87,.28), inset 0 0 0 3px rgba(255,255,255,.18);
+            font-size:28px;line-height:1;cursor:pointer;z-index:70;
+            display:none;align-items:center;justify-content:center}
+.symbol-fab.show{display:flex}
+.symbol-fab:hover{background:#6a44c4}
+.symbol-fab.active{background:#4f2bb0}
+.symbol-panel{position:fixed;right:18px;bottom:90px;width:min(360px,calc(100vw - 32px));
+              max-height:calc(100vh - 130px);overflow-y:auto;z-index:65;background:#fff;
+              border:3px dashed #7d56d6;border-radius:20px;padding:14px;
+              box-shadow:0 14px 30px rgba(31,36,87,.25);display:none}
+.symbol-panel.show{display:block}
+.symbol-panel-head{display:flex;justify-content:space-between;align-items:center;
+                   font-weight:900;font-size:18px;color:#3c248f;margin-bottom:10px}
+.symbol-panel-close{background:#fff;border:2px solid #d5c9f5;border-radius:50%;width:32px;height:32px;
+                    font-size:16px;cursor:pointer;color:#5b35c8;line-height:1;
+                    display:flex;align-items:center;justify-content:center}
+.symbol-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.sym-btn{font-family:"Cambria Math","STIX Two Math","Segoe UI Symbol","DejaVu Sans",serif;
+         font-size:20px;line-height:1;font-weight:700;color:#3c248f;background:#f4efff;
+         border:2px solid #d5c9f5;border-radius:12px;padding:9px 0;cursor:pointer}
+.sym-btn:hover{background:#e6daff;border-color:#7d56d6}
+.footer-note{margin-top:14px;text-align:center;color:#5b4bb2;font-size:16px;font-weight:900}
+@media(max-width:900px){
+  .sheet{padding:18px 16px 20px 48px}
+  .block{grid-template-columns:1fr;gap:10px}
+  .inline-grid{grid-template-columns:1fr}
+  .topbar{grid-template-columns:1fr 1fr 1fr}
+  .option-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  body{background:#eef3fb}
+  .sheet{width:100%;margin:0;padding:12px 12px 18px;border:0;border-radius:0;
+         box-shadow:none;background:var(--paper);overflow:visible}
+  h1{font-size:24px}.ribbon{font-size:13px;padding:5px 12px}
+  .pill{font-size:12px;min-height:38px;padding:5px 4px}
+  .side-label{font-size:14px;min-height:0;padding:8px 12px;display:flex;align-items:center;gap:10px;text-align:left}
+  .side-label .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;
+                   border-radius:50%;background:rgba(255,255,255,.22);font-size:18px;margin:0}
+  .content-box{padding:12px}.section-title{font-size:15px;padding:4px 12px}
+  .question h3{font-size:16px}.question{padding:10px}
+  input,textarea,select{font-size:15px;padding:8px 10px;min-height:42px}
+  .btn{font-size:14px;padding:8px 12px;min-height:42px}
+  .symbol-fab{width:48px;height:48px;font-size:22px;right:10px;bottom:10px}
+  .timer-box{top:52px;right:8px;min-width:126px;padding:6px 9px}.timer-value{font-size:20px}
+  .proctor-box{top:118px;right:8px;width:176px;padding:6px}
+}
+@media(max-width:480px){
+  .option-list{grid-template-columns:1fr}
+  .short-answer{grid-template-columns:repeat(4,46px);gap:6px}
+  .short-char{width:46px!important;min-height:50px!important;font-size:22px!important}
+}
+@media print{body{background:#fff}.sheet{width:100%;margin:0;border:0;box-shadow:none;border-radius:0;background:#fff}
+  .btns,.topbar,.symbol-fab,.symbol-panel,.timer-box,.proctor-box{display:none!important}
+  .screen{display:block!important;page-break-inside:avoid}}
+
+
+:root{
+  --paper:#FFFDF6;--ink:#1F2457;--purple:#5B35C8;
+  --pink:#EF4B8B;--blue:#2386D8;
+}
+body{background:#EAF2FB;font-family:"Comic Sans MS","Segoe UI",Arial,sans-serif}
+.sheet{width:min(1100px,calc(100% - 22px))}
+p,li{font-size:20px}
+input[type="text"],input[type="email"],input[type="password"],select,textarea{font-size:19px}
+.option-list label{min-height:48px;font-size:19px}
+.essay-editor textarea{min-height:132px}
+.short-answer{grid-template-columns:repeat(4,54px)}
+.short-char{width:54px!important;min-height:54px!important}
+
+@media(max-width:980px){
+  body{background:#eef3fb}
+  .sheet{
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:12px 10px 18px!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    background:var(--paper)!important;
+    overflow:visible!important;
+  }
+  .header{margin:0 0 10px}
+  .cloud{
+    width:100%;
+    min-width:0;
+    padding:10px 12px 12px;
+    border-radius:30px;
+  }
+  h1{font-size:clamp(24px,7vw,42px);line-height:1.12;letter-spacing:.2px}
+  .ribbon{
+    max-width:92%;
+    padding:6px 12px;
+    font-size:clamp(13px,3.5vw,19px);
+    line-height:1.15;
+    overflow-wrap:anywhere;
+  }
+  .topbar{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:8px 0 10px}
+  .pill{min-height:42px;padding:6px 4px;border-width:2px;border-radius:13px;font-size:clamp(12px,3.2vw,16px);gap:4px}
+  .block{grid-template-columns:1fr!important;gap:8px;margin:10px 0}
+  .side-label{
+    min-height:0;
+    padding:8px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    text-align:center;
+    font-size:clamp(14px,3.5vw,18px);
+    border-radius:14px;
+  }
+  .side-label .num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    margin:0;
+    border-radius:50%;
+    background:rgba(255,255,255,.22);
+    font-size:18px;
+    line-height:1;
+  }
+  .content-box{padding:12px;border-width:2px;border-radius:16px}
+  .section-title{font-size:clamp(16px,4.2vw,21px);padding:5px 13px;margin-bottom:9px}
+  p,li{font-size:16px;line-height:1.45}
+  .small{font-size:13px}
+  .field{margin:8px 0}
+  .field label{font-size:15px}
+  input[type="text"],input[type="email"],input[type="password"],select,textarea{
+    font-size:16px;
+    min-height:44px;
+    padding:8px 10px;
+    border-width:2px;
+    border-radius:12px;
+  }
+  .access-code-input{
+    width:100%!important;
+    max-width:340px!important;
+    font-size:22px!important;
+    letter-spacing:4px!important;
+  }
+  .btns{gap:8px;margin-top:10px}
+  .btn{font-size:16px;min-height:44px;padding:8px 13px;border-width:3px;border-radius:14px}
+  .question{padding:10px;border-width:2px;border-radius:15px}
+  .question h3{font-size:17px}
+  .option-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .option-list label{min-height:44px;padding:8px 9px;font-size:16px}
+  .tf-option legend{font-size:15px}
+  .tf-option label{font-size:14px}
+  .timer-box.show{
+    position:sticky;
+    top:6px;
+    right:auto;
+    margin:6px 6px 4px auto;
+    min-width:0;
+    width:max-content;
+    max-width:150px;
+    padding:6px 8px;
+    border-width:2px;
+    border-radius:12px;
+  }
+  .timer-label{font-size:11px}
+  .timer-value{font-size:18px;letter-spacing:.5px}
+  .proctor-box.show{
+    position:sticky;
+    top:62px;
+    right:auto;
+    width:min(230px,calc(100% - 12px));
+    margin:6px 6px 4px auto;
+    padding:7px;
+    border-width:2px;
+  }
+  .footer-note{font-size:13px;margin-top:10px}
+  .symbol-fab{width:48px;height:48px;font-size:22px;right:10px;bottom:10px}
+  .symbol-panel{right:8px;bottom:64px;width:calc(100vw - 16px)}
+}
+@media(max-width:560px){
+  .sheet{padding:10px 8px 16px!important}
+  .cloud{padding:9px 10px 10px;border-width:3px}
+  h1{font-size:clamp(22px,6.8vw,30px)}
+  .ribbon{font-size:clamp(12px,3.8vw,16px)}
+  .topbar{gap:5px}
+  .pill{font-size:12px}
+  .option-list{grid-template-columns:1fr}
+  .access-code-input{max-width:100%!important;font-size:20px!important;letter-spacing:3px!important}
+}
+@media(max-width:480px){
+  .short-answer{grid-template-columns:repeat(4,46px)}
+  .short-char{width:46px!important;min-height:46px!important}
+}
+@media print{.sheet{background:#fff}}
+
+
+.mathjax-content{font-family:"Segoe UI","Arial",sans-serif;line-height:1.65}
+.mathjax-question-body{font-size:18px;color:var(--ink);margin:4px 0 12px}
+.mathjax-option-text{display:inline-block;vertical-align:middle;max-width:calc(100% - 34px)}
+.mathjax-immini{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,34%);gap:16px;align-items:center;margin:6px 0 10px}
+.mathjax-immini-side{text-align:center}
+.mathjax-center{text-align:center;margin:8px 0}
+.mathjax-asset{display:block;text-align:center;margin:8px auto}
+.mathjax-asset--standalone{display:block;width:100%;clear:both;margin:12px 0;text-align:center}
+.mathjax-asset--standalone img{display:block;margin:0 auto}
+.mathjax-asset--immini{width:auto;clear:none;margin:6px auto}
+.mathjax-asset img{width:auto;max-width:min(100%,720px);max-height:560px;height:auto;object-fit:contain;border:2px dashed #d6c5e8;border-radius:12px;background:#fff;padding:4px}
+.mathjax-asset--immini img{max-width:100%;max-height:420px}
+@media(max-width:720px){.mathjax-immini{grid-template-columns:1fr}.mathjax-question-body{font-size:16px}}
+
+
+body.modern-slide-mode{background:#edf2f7;font-family:"Segoe UI",Arial,sans-serif}
+body.modern-slide-mode .sheet{
+  width:min(1220px,calc(100% - 34px));margin:18px auto 24px;padding:0;
+  border:1px solid #d7dee8;border-radius:16px;box-shadow:0 22px 52px rgba(15,23,42,.13);
+  background:#f8fafc;overflow:visible;
+}
+body.modern-slide-mode .header{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;
+  margin:0;padding:16px 20px;border-bottom:1px solid #e2e8f0;border-radius:16px 16px 0 0;
+  background:#fff;text-align:left;
+}
+body.modern-slide-mode .cloud{
+  min-width:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;
+}
+body.modern-slide-mode h1{
+  margin:0;color:#172554;font-size:clamp(20px,2.2vw,30px);line-height:1.18;
+  letter-spacing:0;text-shadow:none;
+}
+body.modern-slide-mode .ribbon{
+  margin:0;padding:8px 14px;border:1px solid #bfdbfe;border-radius:999px;background:#eff6ff;
+  color:#1e3a8a;font-size:15px;line-height:1.2;box-shadow:none;white-space:nowrap;
+}
+body.modern-slide-mode #access,
+body.modern-slide-mode #intro,
+body.modern-slide-mode #exam,
+body.modern-slide-mode #submit{padding:18px 20px 22px}
+body.modern-slide-mode.behavior-mode #exam .block{max-width:1120px;margin:0 auto}
+body.modern-slide-mode.behavior-mode #exam .content-box{
+  padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;
+}
+body.modern-slide-mode .behavior-slide-bar{
+  position:sticky;top:10px;z-index:55;margin:0 0 14px;padding:12px 14px;
+  border:1px solid #d8d2ff;border-radius:14px;background:rgba(255,255,255,.96);
+  box-shadow:0 12px 28px rgba(30,41,59,.10);backdrop-filter:saturate(1.2) blur(6px);
+}
+body.modern-slide-mode .behavior-slide-title{font-size:18px;color:#312e81;white-space:nowrap}
+body.modern-slide-mode .behavior-slide-actions button,
+body.modern-slide-mode .behavior-slide-jump select,
+body.modern-slide-mode .behavior-slide-info,
+body.modern-slide-mode .behavior-slide-submit{
+  min-height:38px;border-radius:10px;border-width:1px;padding:8px 12px;
+  font-size:14px;font-family:"Segoe UI",Arial,sans-serif;box-shadow:none;letter-spacing:0;
+}
+body.modern-slide-mode .behavior-slide-actions button:hover,
+body.modern-slide-mode .behavior-slide-info:hover{background:#f8fafc}
+body.modern-slide-mode .behavior-slide-submit{background:#16a34a;border-color:#16a34a;color:#fff}
+body.modern-slide-mode .behavior-slide-jump label{font-size:13px;color:#475569}
+body.modern-slide-mode .behavior-slide-jump select{min-width:190px;background:#fff}
+body.modern-slide-mode .behavior-summary{padding:22px 18px 18px;border:1px solid #e2e8f0;border-left:5px solid #16a34a;border-radius:14px;background:#fff;box-shadow:0 14px 34px rgba(15,23,42,.08)}
+body.modern-slide-mode .behavior-summary-item{border-width:1px;border-color:#dbe3ef;border-radius:12px;box-shadow:none;transition:border-color .18s,background .18s,box-shadow .18s,transform .12s}
+body.modern-slide-mode .behavior-summary-item:hover{border-color:#a5b4fc;background:#fafbff;box-shadow:0 8px 22px rgba(79,70,229,.10);transform:translateY(-1px)}
+body.modern-slide-mode .behavior-summary-submit{border-width:1px;border-color:#16a34a;border-radius:10px;background:#16a34a;font-family:"Segoe UI",Arial,sans-serif;box-shadow:none}
+body.modern-slide-mode .question.behavior-active-question{
+  margin:0;padding:22px 18px 18px;border:1px solid #e2e8f0;border-left:5px solid #f59e0b;
+  border-radius:14px;background:#fff;box-shadow:0 14px 34px rgba(15,23,42,.08);
+}
+body.modern-slide-mode .question .image-wrap img,
+body.modern-slide-mode .mathjax-asset img{border:1px solid #d8d2ff;border-radius:12px;background:#fff;padding:5px}
+body.modern-slide-mode .mathjax-question-body{font-size:19px;line-height:1.72;margin:2px 0 18px;color:#111827}
+body.modern-slide-mode .option-list{grid-template-columns:1fr;gap:10px}
+body.modern-slide-mode .tn-choice-list.choice-columns-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+body.modern-slide-mode .tn-choice-list.choice-columns-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+body.modern-slide-mode .option-list.tf-list{grid-template-columns:1fr;align-items:stretch}
+body.modern-slide-mode .tf-list-header,
+body.modern-slide-mode .tf-option{
+  display:grid;grid-template-columns:minmax(0,1fr) 104px 104px;align-items:stretch;
+}
+body.modern-slide-mode .tf-list-header{
+  border:1px solid #cbd5e1;border-radius:11px;background:#eef2ff;color:#312e81;
+  font-size:14px;font-weight:800;text-align:center;overflow:hidden;
+}
+body.modern-slide-mode .tf-list-header span{padding:9px 10px}
+body.modern-slide-mode .tf-list-header span:first-child{text-align:left}
+body.modern-slide-mode .tf-list-header span+span{border-left:1px solid #cbd5e1}
+body.modern-slide-mode .option-list .choice-card,
+body.modern-slide-mode .tf-option{
+  border:1px solid #dbe3ef;border-radius:12px;background:#fff;
+  box-shadow:none;transition:border-color .18s,background .18s,box-shadow .18s,transform .12s;
+}
+body.modern-slide-mode .option-list .choice-card{
+  position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);
+  align-items:center;gap:12px;min-height:66px;padding:12px 13px;font-size:17px;
+  overflow:hidden;isolation:isolate;user-select:none;-webkit-tap-highlight-color:transparent;
+}
+body.modern-slide-mode .option-list .choice-card::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:0;
+  background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(37,99,235,.04));
+  transition:opacity .18s;
+}
+body.modern-slide-mode .option-list .choice-card:hover{
+  border-color:#a5b4fc;background:#fafbff;box-shadow:0 8px 22px rgba(79,70,229,.10);
+  transform:translateY(-1px);
+}
+body.modern-slide-mode .option-list .choice-card:active{transform:translateY(1px) scale(.995)}
+body.modern-slide-mode .choice-card-input{
+  position:absolute!important;width:1px!important;height:1px!important;margin:0!important;
+  opacity:0;pointer-events:none;transform:none!important;
+}
+body.modern-slide-mode .choice-card-key{
+  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border:1px solid #cbd5e1;border-radius:11px;background:#f8fafc;color:#334155;
+  font-size:16px;font-weight:800;line-height:1;transition:all .18s;
+}
+body.modern-slide-mode .choice-card-text{min-width:0;color:#1e293b;line-height:1.52}
+body.modern-slide-mode .image-choice-card .choice-card-text,
+body.modern-slide-mode .choice-card-text.mathjax-option-text{display:block;max-width:100%}
+body.modern-slide-mode .choice-card:focus-within{
+  outline:3px solid rgba(79,70,229,.32);outline-offset:3px;border-color:#6366f1;
+}
+body.modern-slide-mode .tf-option{min-height:72px;padding:0;overflow:hidden}
+body.modern-slide-mode .tf-option .mathjax-option-text{display:block;max-width:100%;margin:0;line-height:1.55}
+body.modern-slide-mode .tf-statement{
+  display:flex;align-items:flex-start;gap:7px;padding:13px 14px;color:#1e293b;
+}
+body.modern-slide-mode .tf-letter{flex:0 0 auto;margin:0;color:#312e81;font-size:17px}
+body.modern-slide-mode .tf-statement-content{flex:1 1 auto;min-width:0}
+body.modern-slide-mode .tf-option .tf-choice-card{
+  display:flex;align-items:center;justify-content:center;min-height:100%;margin:0;padding:10px;
+  border:0;border-left:1px solid #dbe3ef;border-radius:0;background:#f8fafc;
+}
+body.modern-slide-mode .tf-choice-text{display:none}
+body.modern-slide-mode .tf-choice-mark{
+  display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;
+  border:2px solid #cbd5e1;border-radius:50%;background:#fff;color:#fff;
+  font-family:"Segoe UI",Arial,sans-serif;font-size:16px;font-weight:900;line-height:1;
+  transition:border-color .18s,background .18s,box-shadow .18s,transform .12s;
+}
+body.modern-slide-mode .option-list .choice-card:has(.choice-card-input:checked){
+  border-color:#6366f1;background:#f5f7ff;box-shadow:0 0 0 3px rgba(99,102,241,.12);
+}
+body.modern-slide-mode .tf-option .tf-choice-card:has(.choice-card-input:checked){
+  border-left-color:#6366f1;background:#eef2ff;box-shadow:inset 0 0 0 2px rgba(99,102,241,.32);
+}
+body.modern-slide-mode .tf-option .tf-choice-card:focus-within{
+  outline:0;box-shadow:inset 0 0 0 3px rgba(79,70,229,.30);
+}
+body.modern-slide-mode .option-list .choice-card:has(.choice-card-input:checked)::before{opacity:1}
+body.modern-slide-mode .choice-card-input:checked ~ .choice-card-key{
+  border-color:#4f46e5;background:#4f46e5;color:#fff;box-shadow:0 6px 14px rgba(79,70,229,.24);
+}
+body.modern-slide-mode .choice-card-input:checked ~ .tf-choice-mark{
+  border-color:#4f46e5;background:#4f46e5;box-shadow:0 5px 12px rgba(79,70,229,.24);transform:scale(1.04);
+}
+body.modern-slide-mode .choice-card-input:checked ~ .tf-choice-mark::after{content:"✓"}
+body.modern-slide-mode .short-answer{grid-template-columns:repeat(4,64px);gap:10px}
+body.modern-slide-mode .short-char{width:64px!important;min-height:62px!important;border-radius:14px!important}
+body.modern-slide-mode .timer-box{
+  top:92px;right:28px;min-width:168px;padding:12px 15px;border:1px solid #bfdbfe;
+  border-radius:14px;background:#fff;color:#172554;box-shadow:0 18px 36px rgba(15,23,42,.13);
+}
+body.modern-slide-mode .timer-label{font-size:15px}
+body.modern-slide-mode .timer-value{font-size:30px;letter-spacing:1px}
+body.modern-slide-mode .symbol-fab{background:#4f46e5}
+@media(max-width:980px){
+  body.modern-slide-mode .sheet{width:100%!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important}
+  body.modern-slide-mode .header{grid-template-columns:1fr;padding:12px 14px;border-radius:0}
+  body.modern-slide-mode .ribbon{width:max-content;max-width:100%;font-size:14px;white-space:normal}
+  body.modern-slide-mode #access,
+  body.modern-slide-mode #intro,
+  body.modern-slide-mode #exam,
+  body.modern-slide-mode #submit{padding:10px 8px 16px}
+  body.modern-slide-mode.behavior-mode #exam .content-box{padding:10px;border-width:2px;border-radius:16px}
+  body.modern-slide-mode .behavior-slide-bar{padding:10px}
+  body.modern-slide-mode .behavior-slide-row{align-items:stretch}
+  body.modern-slide-mode .behavior-slide-left,
+  body.modern-slide-mode .behavior-slide-right{width:100%;justify-content:space-between}
+  body.modern-slide-mode .behavior-slide-title{font-size:18px;white-space:normal}
+  body.modern-slide-mode .behavior-slide-actions{flex:1;justify-content:flex-end}
+  body.modern-slide-mode .behavior-slide-jump{flex:1}
+  body.modern-slide-mode .behavior-slide-jump select{min-width:0;max-width:none}
+  body.modern-slide-mode .question.behavior-active-question{padding:14px 11px}
+  body.modern-slide-mode .behavior-summary{padding:16px 12px}
+  body.modern-slide-mode .behavior-summary-item{grid-template-columns:1fr auto}
+  body.modern-slide-mode .behavior-summary-answer{grid-column:1/-1}
+  body.modern-slide-mode .mathjax-question-body{font-size:16px;line-height:1.6}
+  body.modern-slide-mode .option-list.tf-list{grid-template-columns:1fr}
+  body.modern-slide-mode .tf-list-header,
+  body.modern-slide-mode .tf-option{grid-template-columns:minmax(0,1fr) 84px 84px}
+  body.modern-slide-mode .timer-box.show{top:6px;right:auto}
+}
+@media(max-width:560px){
+  body.modern-slide-mode .behavior-slide-left,
+  body.modern-slide-mode .behavior-slide-right{display:grid;grid-template-columns:1fr;gap:8px}
+  body.modern-slide-mode .behavior-slide-actions{display:grid;grid-template-columns:1fr 1fr}
+  body.modern-slide-mode .behavior-slide-info,
+  body.modern-slide-mode .behavior-slide-submit{width:100%}
+  body.modern-slide-mode .behavior-summary-item{grid-template-columns:1fr}
+  body.modern-slide-mode .behavior-summary-answer{grid-column:auto}
+  body.modern-slide-mode .behavior-summary-status{width:max-content;min-width:0}
+  body.modern-slide-mode .behavior-summary-submit{width:100%}
+  body.modern-slide-mode .short-answer{grid-template-columns:repeat(4,48px);gap:7px}
+  body.modern-slide-mode .short-char{width:48px!important;min-height:52px!important}
+  body.modern-slide-mode .tf-list-header,
+  body.modern-slide-mode .tf-option{grid-template-columns:minmax(0,1fr) 60px 60px}
+  body.modern-slide-mode .tf-list-header span{padding:8px 4px;font-size:12px}
+  body.modern-slide-mode .tf-statement{padding:10px 9px;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  body.modern-slide-mode .option-list .choice-card,
+  body.modern-slide-mode .option-list .choice-card::before,
+  body.modern-slide-mode .choice-card-key{transition:none}
+}
+</style>
+</head>
+<body class="behavior-mode modern-slide-mode mathjax-mode">
+  <aside id="timerBox" class="timer-box" aria-live="polite">
+    <span class="timer-label">Thời gian còn lại</span>
+    <span id="timerValue" class="timer-value">45:00</span>
+  </aside>
+  <aside id="proctorBox" class="proctor-box" aria-live="polite">
+    <div class="proctor-title">Theo dõi camera</div>
+    <div class="proctor-frame">
+      <video id="proctorVideo" autoplay muted playsinline></video>
+      <canvas id="proctorCanvas"></canvas>
+    </div>
+    <div id="proctorStatus" class="proctor-status">Camera chưa bật.</div>
+    <div class="proctor-actions">
+      <button id="proctorRetryBtn" class="proctor-retry" type="button" onclick="retryCameraPermission()" hidden>Bật camera</button>
+    </div>
+  </aside>
+  <main class="sheet">
+    <header class="header">
+      <div class="cloud"><h1>Bài thi trực tuyến</h1></div>
+      <div class="ribbon">Tin học 9</div>
+    </header>
+
+
+
+    <section id="access" class="screen active">
+      <section class="block">
+        <div class="side-label purple"><span class="num">🔐</span>Vào thi</div>
+        <div class="content-box">
+          <h2 class="section-title">Nhập mã vào phòng thi</h2>
+          <p>Em nhập mã gồm 6 ký tự do giáo viên cung cấp để mở bài thi.</p>
+          <form onsubmit="return unlockExamAccess(event)">
+            <div class="field">
+              <label for="examAccessCode">Mã vào phòng thi</label>
+              <input id="examAccessCode" type="text" maxlength="6" autocomplete="off"
+                     autocapitalize="characters" spellcheck="false"
+                     class="access-code-input"
+                     style="max-width:260px;text-transform:uppercase;font-size:26px;font-weight:900;letter-spacing:6px;text-align:center">
+            </div>
+            <div id="accessMsg" class="message"></div>
+            <div class="btns"><button class="btn b1" type="submit">🔓 Mở bài thi</button></div>
+          </form>
+        </div>
+      </section>
+    </section>
+
+    <section id="intro" class="screen">
+      <section class="block">
+        <div class="side-label purple"><span class="num">0</span>Chuẩn bị</div>
+        <div class="content-box">
+          <h2 class="section-title">Điền thông tin trước khi làm bài</h2>
+          <div class="small">Thời gian mở đề: 27/10/2026 15:42 → 28/10/2026 08:00</div>
+          <div class="small">Thời lượng làm bài: <b>45 phút</b>. Đồng hồ bắt đầu chạy sau khi em bấm “Bắt đầu làm bài”.</div>
+          
+          <div class="real-exam-note">⚠️ Chế độ THI THẬT đang bật. Sau khi bắt đầu, em phải giữ nguyên tab bài thi. Chuyển tab, thu nhỏ cửa sổ, mất focus ngoài lúc chọn ảnh, thoát toàn màn hình hoặc dùng thao tác bị cấm sẽ làm bài thi dừng và nộp ngay lập tức.</div>
+          
+          
+          <p>Em làm tuần tự: <span class="important">điền thông tin</span> → <span class="important">làm bài</span> → <span class="important">nộp bài</span>.</p>
+          <div class="inline-grid">
+            <div class="field"><label for="studentName">Họ và tên</label><input id="studentName" type="text" placeholder="Ví dụ: Nguyễn An" autocomplete="name"></div>
+            <div class="field"><label for="studentSchool">Trường</label><input id="studentSchool" type="text" placeholder="Ví dụ: THCS Khôi Nguyên" autocomplete="organization"></div>
+            <div class="field"><label for="studentClass">Lớp</label><input id="studentClass" type="text" placeholder="Ví dụ: 9A1"></div>
+            <div class="field"><label for="studentId">STT / Mã HS</label><input id="studentId" type="text" placeholder="Ví dụ: 12"></div>
+            <div class="field"><label for="studentEmail">Email</label><input id="studentEmail" type="email" placeholder="email@example.com" autocomplete="email"></div>
+          </div>
+          <div id="introMsg" class="message"></div>
+          <div class="btns"><button class="btn b1" type="button" onclick="startExam()">🚀 Bắt đầu làm bài</button></div>
+        </div>
+      </section>
+    </section>
+
+    <section id="exam" class="screen">
+      <section class="block">
+        
+        <div class="content-box" style="border-color:#2e95d6">
+          
+          <div id="behaviorSlideBar" class="behavior-slide-bar" aria-live="polite">
+            <div class="behavior-slide-row">
+              <div class="behavior-slide-left">
+                <div id="behaviorSlideTitle" class="behavior-slide-title">Câu hỏi</div>
+                <div class="behavior-slide-actions">
+                  <button id="behaviorPrevBtn" type="button" onclick="goBehaviorQuestion(-1)">← Quay lại</button>
+                  <button id="behaviorNextBtn" type="button" onclick="goBehaviorQuestion(1)">Tiếp theo →</button>
+                </div>
+              </div>
+              <div class="behavior-slide-right">
+                <div class="behavior-slide-jump">
+                  <label for="behaviorJumpSelect">Muốn đến</label>
+                  <select id="behaviorJumpSelect" onchange="jumpBehaviorQuestion(this.value)"></select>
+                </div>
+                <button class="behavior-slide-info" type="button" onclick="returnToIntro()">👤 Thông tin</button>
+                <button class="behavior-slide-submit" type="button" onclick="openBehaviorSummary()">📋 Tổng kết</button>
+              </div>
+            </div>
+            <div id="behaviorSlideMeta" class="behavior-slide-meta"></div>
+          </div>
+<div class="section-block mathjax-content">
+<div class="question mathjax-question" data-question-index="1" data-question-type="tn" data-question-local="1" data-question-label="Phần I - Câu 1">
+  
+  <div class="mathjax-question-body">Bộ xử lý thông tin trong máy tính có chức năng gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn1" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Lưu trữ dữ liệu</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn1" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Xử lý và thực hiện các lệnh trên dữ liệu</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn1" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Kết nối Internet</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn1" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Hiển thị thông tin ra màn hình</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="2" data-question-type="tn" data-question-local="2" data-question-label="Phần I - Câu 2">
+  
+  <div class="mathjax-question-body">Thiết bị nào sau đây không sử dụng bộ xử lý thông tin?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn2" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Máy rút tiền tự động (ATM)</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn2" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Bảng đen truyền thống</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn2" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Xe tự lái</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn2" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Máy giặt thông minh</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="3" data-question-type="tn" data-question-local="3" data-question-label="Phần I - Câu 3">
+  
+  <div class="mathjax-question-body">Thế giới kỹ thuật số được tạo thành bởi gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn3" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Các thiết bị gắn bộ xử lý thông tin</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn3" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Mạng Internet</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn3" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Các thiết bị giải trí</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn3" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Dữ liệu được lưu trữ trực tuyến</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="4" data-question-type="tn" data-question-local="4" data-question-label="Phần I - Câu 4">
+  
+  <div class="mathjax-question-body">Máy tính có thể lưu trữ và xử lý dữ liệu nào sau đây?</div>
+  <div class="option-list tn-choice-list choice-columns-1" data-choice-shuffle="off">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn4" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Văn bản</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn4" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Âm thanh</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn4" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Video</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn4" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tất cả các loại dữ liệu trên</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="5" data-question-type="tn" data-question-local="5" data-question-label="Phần I - Câu 5">
+  
+  <div class="mathjax-question-body">Tác dụng của công nghệ thông tin trong giáo dục là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn5" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Giúp chia sẻ kiến thức mọi lúc, mọi nơi</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn5" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Thay thế hoàn toàn giáo viên</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn5" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Hạn chế sự tương tác của học sinh với nhau</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn5" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Ngăn chặn việc sử dụng sách vở truyền thống</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="6" data-question-type="tn" data-question-local="6" data-question-label="Phần I - Câu 6">
+  
+  <div class="mathjax-question-body">Ưu điểm của máy tính so với con người trong tính toán là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn6" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Chính xác và nhanh chóng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn6" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Có cảm xúc</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn6" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thay đổi theo ý muốn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn6" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tự động học hỏi mà không cần lập trình</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="7" data-question-type="tn" data-question-local="7" data-question-label="Phần I - Câu 7">
+  
+  <div class="mathjax-question-body">Ứng dụng nào sau đây không cần máy tính?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn7" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Hệ thống đèn tín hiệu giao thông</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn7" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Đọc sách giấy</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn7" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Điều khiển xe tự lái</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn7" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Quản lý dữ liệu bệnh viện</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="8" data-question-type="tn" data-question-local="8" data-question-label="Phần I - Câu 8">
+  
+  <div class="mathjax-question-body">Tác động tiêu cực nào có thể xảy ra khi lạm dụng công nghệ thông tin?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn8" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Học hỏi thêm nhiều kiến thức mới</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn8" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Kết nối với bạn bè ở xa</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn8" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Gây ảnh hưởng đến sức khỏe thể chất và tinh thần</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn8" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Hỗ trợ việc học tập tại nhà</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="9" data-question-type="tn" data-question-local="9" data-question-label="Phần I - Câu 9">
+  
+  <div class="mathjax-question-body">Tác dụng của hệ thống băng chuyền tự động trong công nghiệp là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn9" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Tiết kiệm sức lao động và tăng năng suất</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn9" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Thay thế hoàn toàn con người trong sản xuất</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn9" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Làm giảm chất lượng sản phẩm</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn9" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Chỉ hoạt động trong các ngành sản xuất nhỏ</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="10" data-question-type="tn" data-question-local="10" data-question-label="Phần I - Câu 10">
+  
+  <div class="mathjax-question-body">Internet giúp ích gì trong học tập?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn10" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Cung cấp tài liệu miễn phí</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn10" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Cản trở việc nghiên cứu</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn10" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Chỉ hỗ trợ việc giải trí</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn10" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Làm giảm sự sáng tạo của học sinh</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="11" data-question-type="tn" data-question-local="11" data-question-label="Phần I - Câu 11">
+  
+  <div class="mathjax-question-body">Máy tính hiệu năng cao được sử dụng trong lĩnh vực nào?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn11" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Tính toán khoa học phức tạp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn11" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Xem phim và giải trí</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn11" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Lưu trữ tài liệu cá nhân</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn11" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Điều khiển các thiết bị gia đình</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="12" data-question-type="tn" data-question-local="12" data-question-label="Phần I - Câu 12">
+  
+  <div class="mathjax-question-body">Đồng hồ thông minh khác với đồng hồ truyền thống ở điểm nào?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn12" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Chỉ dùng để xem giờ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn12" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Có thể theo dõi sức khỏe và kết nối điện thoại</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn12" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Không có bộ xử lý</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn12" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Không cần nguồn năng lượng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="13" data-question-type="tn" data-question-local="13" data-question-label="Phần I - Câu 13">
+  
+  <div class="mathjax-question-body">Trong lĩnh vực nào, công nghệ thông tin giúp tiết kiệm thời gian và tự động hóa quy trình?</div>
+  <div class="option-list tn-choice-list choice-columns-1" data-choice-shuffle="off">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn13" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Công nghiệp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn13" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Nông nghiệp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn13" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thương mại</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn13" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tất cả các lĩnh vực trên</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="14" data-question-type="tn" data-question-local="14" data-question-label="Phần I - Câu 14">
+  
+  <div class="mathjax-question-body">Công nghệ thông tin giúp con người giao tiếp như thế nào?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn14" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Qua thư tay truyền thống</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn14" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Qua email, mạng xã hội và tin nhắn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn14" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Qua việc gặp gỡ trực tiếp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn14" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Qua các cuộc họp chỉ diễn ra trong văn phòng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="15" data-question-type="tn" data-question-local="15" data-question-label="Phần I - Câu 15">
+  
+  <div class="mathjax-question-body">Điều gì quyết định tác động của công nghệ thông tin lên cuộc sống?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn15" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Loại thiết bị sử dụng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn15" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Cách con người sử dụng công nghệ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn15" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tốc độ kết nối Internet</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn15" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Sự phát triển của phần mềm</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="16" data-question-type="tn" data-question-local="16" data-question-label="Phần I - Câu 16">
+  
+  <div class="mathjax-question-body">Máy bay không người lái phun diệt thuốc trừ sâu thuộc lĩnh vực nào?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn16" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Công nghiệp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn16" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Nông nghiệp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn16" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Giáo dục</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn16" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Thương mại</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="17" data-question-type="tn" data-question-local="17" data-question-label="Phần I - Câu 17">
+  
+  <div class="mathjax-question-body">Vai trò quan trọng nhất của thông tin trong giải quyết vấn đề là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn17" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Làm tăng số lượng dữ liệu được xử lý</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn17" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Làm cơ sở để đưa ra các quyết định đúng đắn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn17" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Giảm thiểu công việc tìm kiếm thông tin</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn17" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tăng khả năng truy cập Internet</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="18" data-question-type="tn" data-question-local="18" data-question-label="Phần I - Câu 18">
+  
+  <div class="mathjax-question-body">Tính chất nào của thông tin thể hiện mức độ cập nhật và không bị lỗi thời?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn18" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Tính sử dụng được</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn18" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Tính đầy đủ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn18" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tính mới</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn18" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tính chính xác</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="19" data-question-type="tn" data-question-local="19" data-question-label="Phần I - Câu 19">
+  
+  <div class="mathjax-question-body">Việc An chọn trường dựa trên thông tin không kiểm chứng có thể dẫn đến điều gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn19" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Quyết định đúng đắn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn19" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Không có hậu quả gì</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn19" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Quyết định sai lầm và giảm cơ hội lựa chọn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn19" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Nâng cao cơ hội trúng tuyển</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="20" data-question-type="tn" data-question-local="20" data-question-label="Phần I - Câu 20">
+  
+  <div class="mathjax-question-body">Tính chính xác của thông tin có nghĩa là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn20" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Thông tin được cung cấp từ nhiều nguồn khác nhau</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn20" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Thông tin không có bất kỳ lỗi nào</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn20" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thông tin cụ thể, có thể xác minh được</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn20" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Thông tin không cập nhật</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="21" data-question-type="tn" data-question-local="21" data-question-label="Phần I - Câu 21">
+  
+  <div class="mathjax-question-body">Tính đầy đủ của thông tin là gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn21" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Bao quát được nhiều khía cạnh của vấn đề</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn21" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Liên quan trực tiếp đến câu hỏi đặt ra</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn21" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Được cập nhật gần đây nhất</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn21" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Thể hiện nội dung ngắn gọn</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="22" data-question-type="tn" data-question-local="22" data-question-label="Phần I - Câu 22">
+  
+  <div class="mathjax-question-body">Tính sử dụng được của thông tin thể hiện điều gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn22" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Thông tin có liên quan và phù hợp với vấn đề</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn22" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Thông tin có độ chính xác cao</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn22" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thông tin được tìm thấy dễ dàng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn22" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Thông tin có nguồn gốc rõ ràng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="23" data-question-type="tn" data-question-local="23" data-question-label="Phần I - Câu 23">
+  
+  <div class="mathjax-question-body">Vì sao cần quan tâm đến chất lượng thông tin khi giải quyết vấn đề?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn23" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Để giảm thiểu thời gian tìm kiếm thông tin</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn23" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Để đảm bảo thông tin không lỗi thời</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn23" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Để đưa ra quyết định đúng đắn và hiệu quả</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn23" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Để tăng số lượng thông tin thu thập được</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="24" data-question-type="tn" data-question-local="24" data-question-label="Phần I - Câu 24">
+  
+  <div class="mathjax-question-body">Minh đã làm gì để giúp An liên hệ thành công với nông trại?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn24" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Cập nhật đầu số điện thoại từ nguồn khác</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn24" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Gọi liên tục cho nông trại</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn24" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tra cứu thông tin trên mạng xã hội</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn24" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tìm đầu số từ người quen</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="25" data-question-type="tn" data-question-local="25" data-question-label="Phần I - Câu 25">
+  
+  <div class="mathjax-question-body">Tính chất nào không thuộc về chất lượng thông tin?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn25" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Tính mới</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn25" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Tính chính xác</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn25" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tính nổi bật</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn25" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Tính sử dụng được</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="26" data-question-type="tn" data-question-local="26" data-question-label="Phần I - Câu 26">
+  
+  <div class="mathjax-question-body">Nếu thông tin không đầy đủ, quyết định có thể bị ảnh hưởng như thế nào?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn26" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Quyết định sẽ vẫn đúng nếu thông tin còn mới</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn26" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Quyết định có thể thiếu toàn diện và sai lầm</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn26" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Quyết định sẽ chỉ chậm hơn đôi chút</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn26" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Quyết định sẽ không bị ảnh hưởng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="27" data-question-type="tn" data-question-local="27" data-question-label="Phần I - Câu 27">
+  
+  <div class="mathjax-question-body">Nguồn thông tin nào dưới đây là đáng tin cậy nhất để chọn trường THPT?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn27" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Trang mạng xã hội cá nhân</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn27" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Trang web chính thức của trường</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn27" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thông tin từ bạn bè</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn27" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Blog cá nhân về các trường học</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="28" data-question-type="tn" data-question-local="28" data-question-label="Phần I - Câu 28">
+  
+  <div class="mathjax-question-body">Điều gì sẽ xảy ra nếu sử dụng thông tin lỗi thời?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn28" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Quyết định vẫn chính xác nếu thông tin đầy đủ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn28" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Quyết định có thể sai do không nắm bắt tình hình hiện tại</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn28" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Quyết định không bị ảnh hưởng nếu thông tin chính xác</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn28" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Quyết định sẽ nhanh hơn</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="29" data-question-type="tn" data-question-local="29" data-question-label="Phần I - Câu 29">
+  
+  <div class="mathjax-question-body">Hành động nào sau đây vi phạm pháp luật khi sử dụng Internet?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn29" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Đăng tải nội dung sai sự thật trên mạng xã hội</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn29" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Gửi thư chúc mừng sinh nhật cho bạn trên mạng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn29" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tải phần mềm miễn phí từ trang web chính thức</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn29" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Đăng ảnh của bản thân lên mạng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="30" data-question-type="tn" data-question-local="30" data-question-label="Phần I - Câu 30">
+  
+  <div class="mathjax-question-body">Tác động tiêu cực nào dưới đây là do công nghệ kỹ thuật số?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn30" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Lộ thông tin cá nhân</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn30" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Giao dịch ngân hàng thuận tiện hơn</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn30" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Phát triển nền kinh tế số</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn30" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Kết nối mọi người dễ dàng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="31" data-question-type="tn" data-question-local="31" data-question-label="Phần I - Câu 31">
+  
+  <div class="mathjax-question-body">Để tránh tác động tiêu cực của Internet, em nên làm gì?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn31" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Không sử dụng Internet</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn31" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Chỉ dùng mạng xã hội để giải trí</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn31" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Lựa chọn thông tin từ các nguồn uy tín</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn31" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Sao chép thông tin từ mạng mà không kiểm chứng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="32" data-question-type="tn" data-question-local="32" data-question-label="Phần I - Câu 32">
+  
+  <div class="mathjax-question-body">Hành vi nào sau đây là vi phạm pháp luật trong môi trường số?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn32" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Đăng bài chỉ trích tổ chức mà không có cơ sở</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn32" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Tặng quà sinh nhật qua mạng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn32" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Tham gia diễn đàn học tập</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn32" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Kết nối với bạn bè qua Internet</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="33" data-question-type="tn" data-question-local="33" data-question-label="Phần I - Câu 33">
+  
+  <div class="mathjax-question-body">Tác động tiêu cực nào do rác thải từ thiết bị công nghệ gây ra?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn33" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Làm giảm nhu cầu sử dụng thiết bị số</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn33" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Gây ô nhiễm môi trường nghiêm trọng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn33" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Thúc đẩy tái chế thiết bị công nghệ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn33" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Giảm năng suất lao động</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="34" data-question-type="tn" data-question-local="34" data-question-label="Phần I - Câu 34">
+  
+  <div class="mathjax-question-body">Lựa chọn nào dưới đây là hành vi thiếu văn hóa khi sử dụng mạng xã hội?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn34" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Gửi tin nhắn chúc mừng sinh nhật</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn34" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Bình luận tiêu cực với ngôn ngữ phản cảm</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn34" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Chia sẻ tài liệu học tập miễn phí có bản quyền</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn34" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Đăng ảnh phong cảnh cá nhân</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="35" data-question-type="tn" data-question-local="35" data-question-label="Phần I - Câu 35">
+  
+  <div class="mathjax-question-body">Điều nào cần tránh để bảo vệ quyền riêng tư trên mạng?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn35" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Sử dụng mật khẩu yếu và dễ đoán</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn35" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Cập nhật thông tin cá nhân lên tài khoản mạng xã hội</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn35" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Dùng phần mềm bảo mật</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn35" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Không chia sẻ thông tin quan trọng qua mạng công cộng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="36" data-question-type="tn" data-question-local="36" data-question-label="Phần I - Câu 36">
+  
+  <div class="mathjax-question-body">Vi phạm nào sau đây liên quan đến quyền sở hữu trí tuệ?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn36" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Tự sáng tác một bài thơ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn36" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Tải tài liệu miễn phí từ website chính thức</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn36" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Chia sẻ bài hát không bản quyền lên mạng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn36" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Sử dụng phần mềm miễn phí hợp pháp</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="37" data-question-type="tn" data-question-local="37" data-question-label="Phần I - Câu 37">
+  
+  <div class="mathjax-question-body">Hành vi nào được coi là an toàn khi sử dụng dịch vụ Internet?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn37" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Kích vào liên kết nhận thưởng lạ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn37" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Cài đặt phần mềm bảo mật cho thiết bị</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn37" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Đăng nhập tài khoản trên máy tính công cộng</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn37" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Sử dụng phần mềm vi phạm bản quyền</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="38" data-question-type="tn" data-question-local="38" data-question-label="Phần I - Câu 38">
+  
+  <div class="mathjax-question-body">Tác động tiêu cực nào của công nghệ số đến sức khỏe tinh thần?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn38" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Nâng cao năng suất làm việc</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn38" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Cải thiện kỹ năng giao tiếp</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn38" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Gây nghiện Internet và mất ngủ</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn38" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Kết nối gia đình qua mạng</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="39" data-question-type="tn" data-question-local="39" data-question-label="Phần I - Câu 39">
+  
+  <div class="mathjax-question-body">Hành động nào sau đây không vi phạm luật sử dụng Internet?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn39" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Chia sẻ thông tin sai sự thật</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn39" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Tổ chức đánh bạc trực tuyến</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn39" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Đăng tải tài liệu học tập cá nhân</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn39" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Đánh cắp dữ liệu người khác</span></label>
+  </div>
+</div>
+<div class="question mathjax-question" data-question-index="40" data-question-type="tn" data-question-local="40" data-question-label="Phần I - Câu 40">
+  
+  <div class="mathjax-question-body">Cách nào giúp giảm thiểu rủi ro mất thông tin cá nhân?</div>
+  <div class="option-list tn-choice-list choice-columns-1">
+    <label class="choice-card"><input class="choice-card-input" type="radio" name="tn40" value="A"><span class="choice-card-key">A</span><span class="choice-card-text mathjax-option-text">Sử dụng phần mềm không rõ nguồn gốc</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn40" value="B"><span class="choice-card-key">B</span><span class="choice-card-text mathjax-option-text">Đăng thông tin tài khoản ngân hàng lên mạng xã hội</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn40" value="C"><span class="choice-card-key">C</span><span class="choice-card-text mathjax-option-text">Bật xác thực hai yếu tố trên tài khoản</span></label><label class="choice-card"><input class="choice-card-input" type="radio" name="tn40" value="D"><span class="choice-card-key">D</span><span class="choice-card-text mathjax-option-text">Sử dụng chung mật khẩu cho nhiều tài khoản</span></label>
+  </div>
+</div>
+</div>
+
+          <section id="behaviorSummary" class="behavior-summary" tabindex="-1" aria-labelledby="behaviorSummaryTitle">
+            <div class="behavior-summary-head">
+              <div>
+                <h2 id="behaviorSummaryTitle">Kiểm tra bài làm trước khi nộp</h2>
+                <p>Bấm vào từng câu để quay lại xem hoặc sửa đáp án.</p>
+              </div>
+              <div class="behavior-summary-counts" aria-live="polite">
+                <span id="behaviorSummaryDone" class="behavior-summary-count">Đã làm: 0/0</span>
+                <span id="behaviorSummaryMissing" class="behavior-summary-count missing">Còn lại: 0</span>
+              </div>
+            </div>
+            <div id="behaviorSummaryList" class="behavior-summary-list"></div>
+            <div class="behavior-summary-actions">
+              <button class="behavior-summary-submit" type="button" onclick="submitWork()">📩 Nộp bài</button>
+            </div>
+          </section>
+
+          <div id="examMsg" class="message"></div>
+
+        </div>
+      </section>
+    </section>
+
+    <section id="submit" class="screen">
+      <section class="block">
+        <div class="side-label green"><span class="num">2</span>Nộp bài</div>
+        <div class="content-box" style="border-color:#3aaa55">
+          <h2 class="section-title">Kết quả nộp bài</h2>
+          <div id="submitStatus" class="submit-status pending">⏳ Đang gửi bài...</div>
+        </div>
+      </section>
+    </section>
+
+    <div class="footer-note">MyTeX · Bài thi trực tuyến</div>
+  </main>
+
+<button id="symbolFab" class="symbol-fab" type="button" aria-label="Mở bảng ký hiệu toán" title="Bảng ký hiệu toán">🔣</button>
+<div id="symbolPanel" class="symbol-panel" role="dialog" aria-label="Bảng ký hiệu toán">
+  <div class="symbol-panel-head">
+    <span>🔣 Ký hiệu toán</span>
+    <button id="symbolPanelClose" type="button" class="symbol-panel-close" aria-label="Đóng bảng ký hiệu">✕</button>
+  </div>
+  <div class="symbol-grid">
+    <button type="button" class="sym-btn" data-sym="∈">∈</button>
+    <button type="button" class="sym-btn" data-sym="∉">∉</button>
+    <button type="button" class="sym-btn" data-sym="⊂">⊂</button>
+    <button type="button" class="sym-btn" data-sym="⊃">⊃</button>
+    <button type="button" class="sym-btn" data-sym="⊆">⊆</button>
+    <button type="button" class="sym-btn" data-sym="⊇">⊇</button>
+    <button type="button" class="sym-btn" data-sym="∪">∪</button>
+    <button type="button" class="sym-btn" data-sym="∩">∩</button>
+    <button type="button" class="sym-btn" data-sym="∅">∅</button>
+    <button type="button" class="sym-btn" data-sym="ℕ">ℕ</button>
+    <button type="button" class="sym-btn" data-sym="ℤ">ℤ</button>
+    <button type="button" class="sym-btn" data-sym="ℚ">ℚ</button>
+    <button type="button" class="sym-btn" data-sym="ℝ">ℝ</button>
+    <button type="button" class="sym-btn" data-sym="∞">∞</button>
+    <button type="button" class="sym-btn" data-sym="≠">≠</button>
+    <button type="button" class="sym-btn" data-sym="≤">≤</button>
+    <button type="button" class="sym-btn" data-sym="≥">≥</button>
+    <button type="button" class="sym-btn" data-sym="±">±</button>
+    <button type="button" class="sym-btn" data-sym="×">×</button>
+    <button type="button" class="sym-btn" data-sym="÷">÷</button>
+    <button type="button" class="sym-btn" data-sym="²">²</button>
+    <button type="button" class="sym-btn" data-sym="³">³</button>
+    <button type="button" class="sym-btn" data-sym="√">√</button>
+    <button type="button" class="sym-btn" data-sym="∑">∑</button>
+    <button type="button" class="sym-btn" data-sym="∫">∫</button>
+    <button type="button" class="sym-btn" data-sym="π">π</button>
+    <button type="button" class="sym-btn" data-sym="α">α</button>
+    <button type="button" class="sym-btn" data-sym="β">β</button>
+    <button type="button" class="sym-btn" data-sym="θ">θ</button>
+    <button type="button" class="sym-btn" data-sym="°">°</button>
+    <button type="button" class="sym-btn" data-sym="∥">∥</button>
+    <button type="button" class="sym-btn" data-sym="⊥">⊥</button>
+    <button type="button" class="sym-btn" data-sym="∠">∠</button>
+    <button type="button" class="sym-btn" data-sym="△">△</button>
+    <button type="button" class="sym-btn" data-sym="…">…</button>
+    <button type="button" class="sym-btn" data-sym="⇒">⇒</button>
+  </div>
+  <div class="footer-note">Bấm vào ô cần điền rồi chọn ký hiệu để chèn.</div>
+</div>
+
+  <script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzO1ENRgnAQgaeMxs7PvPupPxVhn9FjeJuddeSRpStUjiKxNL--ljgjy1Ojm0mVf7t7yQ/exec";
+const EXAM_ID = "1OabDS9Ry0hew72i4dp5qyUUPmYur10v2";
+const MYTEX_EXAM_UID = "MTX-20261027-VGF8Y2GG";
+const EXAM_TITLE = "Tin h\u1ecdc 9";
+const EXAM_PAGE_TITLE = "B\u00e0i thi tr\u1ef1c tuy\u1ebfn";
+const TEACHER_EMAIL = "emailtqt@gmail.com";
+const N_TN = 40;
+const N_DS = 0;
+const N_TL = 0;
+const N_LUAN = 0;
+const EXAM_DURATION_MINUTES = 45;
+const EXAM_ACCESS_CODE = "123456";
+const SEND_RESULT_EMAIL = false;
+const REAL_EXAM_MODE = true;
+const CAMERA_MONITORING_MODE = false;
+const BEHAVIOR_TRACKING_MODE = false;
+const SLIDE_EXAM_MODE = true;
+const SHUFFLE_CHOICES = true;
+const SHUFFLE_QUESTIONS = true;
+const RENUMBER_SHUFFLED_QUESTIONS = true;
+const MAX_ESSAY_IMAGES_PER_QUESTION = 4;
+const MAX_IMAGE_SOURCE_BYTES = 12 * 1024 * 1024;
+const MAX_IMAGE_UPLOAD_BYTES = 2 * 1024 * 1024;
+const MAX_TOTAL_UPLOAD_BYTES = 8 * 1024 * 1024;
+const MAX_IMAGE_DIMENSION = 1600;
+const SUBMISSION_REQUEST_TIMEOUT_MS = 60000;
+const SUBMISSION_CONFIRM_TIMEOUT_MS = 20000;
+const CAMERA_PERMISSION_GRACE_MS = 30000;
+
+const steps = ['access','intro','exam','submit'];
+const stepIds = {intro:'stepIntro', exam:'stepExam', submit:'stepSubmit'};
+const DS_LETTERS = ['A','B','C','D'];
+const essayImageStore = new Map();
+const integrityEvidenceUploads = [];
+let submissionId = '';
+let submissionCompleted = false;
+let integrityTerminated = false;
+let integrityViolationReason = '';
+let integrityPickerOpen = false;
+let integrityChecksPausedUntil = 0;
+let unloadGuardTriggered = false;
+let fullscreenWasActivated = false;
+let fullscreenRequestPending = false;
+let initialFullscreenArmed = false;
+let examActivationPending = false;
+let accessGranted = false;
+let jsonpSequence = 0;
+const behaviorState = {
+  questions: [],
+  currentSlide: 0,
+  activeQuestionIndex: 0,
+  activeEnteredAt: 0,
+  logs: new Map(),
+  lastAnswers: new Map(),
+  timers: new Map()
+};
+const cameraMonitor = {
+  stream: null,
+  video: null,
+  canvas: null,
+  ctx: null,
+  sampleCanvas: null,
+  sampleCtx: null,
+  timer: null,
+  faceDetector: null,
+  baseline: null,
+  started: false,
+  requesting: false,
+  permissionPending: false,
+  permissionDeadline: 0,
+  permissionTimer: null,
+  lastPermissionMessage: '',
+  popup: null,
+  popupWatchTimer: null,
+  popupReady: false,
+  popupHeartbeatAt: 0,
+  popupClosing: false,
+  mode: '',
+  warmupUntil: 0,
+  missingSince: 0,
+  lastBox: null
+};
+
+function $(id){ return document.getElementById(id); }
+function value(id){ return ($(id)?.value || '').trim(); }
+function showMessage(id, text, type='warn'){
+  const box = $(id);
+  if(!box) return;
+  box.className = 'message show ' + type;
+  box.innerHTML = text;
+}
+function hideMessage(id){ const box = $(id); if(box){ box.className = 'message'; box.innerHTML = ''; } }
+function isEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+function escapeHtml(text){
+  return String(text || '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[char]);
+}
+function makeSubmissionId(){
+  if(window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+  return 'mytex-' + Date.now() + '-' + Math.random().toString(16).slice(2);
+}
+function isRealExamRunning(){
+  return REAL_EXAM_MODE && Boolean(examStartedAt) && !submissionCompleted && !integrityTerminated && !submitting;
+}
+function isProtectedExamRunning(){
+  return (REAL_EXAM_MODE || CAMERA_MONITORING_MODE) && Boolean(examStartedAt) && !submissionCompleted && !integrityTerminated && !submitting;
+}
+function shouldUseProctoredFullscreen(){
+  return REAL_EXAM_MODE || CAMERA_MONITORING_MODE;
+}
+function pauseIntegrityChecks(milliseconds=120000){
+  integrityChecksPausedUntil = Math.max(integrityChecksPausedUntil, Date.now() + milliseconds);
+}
+function integrityChecksPaused(){
+  return cameraMonitor.requesting || cameraMonitor.permissionPending || integrityPickerOpen || Date.now() < integrityChecksPausedUntil;
+}
+function openEssayImagePicker(index){
+  const input = essayImageInput(index);
+  if(!input) return;
+  integrityPickerOpen = true;
+  pauseIntegrityChecks();
+  input.click();
+}
+function finishEssayImagePicker(){
+  integrityPickerOpen = false;
+  integrityChecksPausedUntil = Date.now() + 800;
+}
+function getRadioValue(name){
+  const checked = document.querySelector(`input[name="${name}"]:checked`);
+  return checked ? checked.value : '';
+}
+function displayedTnAnswer(index){
+  const checked = document.querySelector(`input[name="tn${index}"]:checked`);
+  if(!checked) return '';
+  const key = checked.closest('.choice-card')?.querySelector('.choice-card-key');
+  return (key?.textContent || checked.value || '').trim().toUpperCase();
+}
+function tnAnswerForLog(index){
+  // Nhật ký gửi giáo viên dùng chữ cái gốc cho khớp phiếu kết quả; khi phương
+  // án đã hoán vị thì ghi thêm chữ học sinh nhìn thấy trên màn hình.
+  const original = (getRadioValue('tn' + index) || '').toUpperCase();
+  const shown = displayedTnAnswer(index);
+  return original && shown && shown !== original
+    ? original + ' (hiển thị ' + shown + ')'
+    : original;
+}
+function randomShuffle(items){
+  const values = items.slice();
+  for(let i = values.length - 1; i > 0; i--){
+    const range = i + 1;
+    let j;
+    if(window.crypto?.getRandomValues){
+      const sample = new Uint32Array(1);
+      const limit = Math.floor(4294967296 / range) * range;
+      do { window.crypto.getRandomValues(sample); } while(sample[0] >= limit);
+      j = sample[0] % range;
+    }else{
+      j = Math.floor(Math.random() * range);
+    }
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values;
+}
+function initializeQuestionDisplay(){
+  if(!SHUFFLE_CHOICES && !SHUFFLE_QUESTIONS) return;
+  if(SHUFFLE_QUESTIONS){
+    document.querySelectorAll('#exam .section-block').forEach(section => {
+      const questions = Array.from(section.children).filter(el => el.classList.contains('question'));
+      if(!questions.length) return;
+      const partLabel = String(questions[0].dataset.questionLabel || '').split(' - Câu ')[0];
+      randomShuffle(questions).forEach((question, index) => {
+        section.appendChild(question);
+        const local = index + 1;
+        question.dataset.displayLocal = String(local);
+        if(RENUMBER_SHUFFLED_QUESTIONS){
+          question.dataset.questionLabel = partLabel + ' - Câu ' + local;
+          const heading = question.querySelector(':scope > h3');
+          if(heading) heading.textContent = 'Câu ' + local;
+        }
+      });
+    });
+  }
+  if(SHUFFLE_CHOICES){
+    document.querySelectorAll('#exam .question[data-question-type="tn"] .tn-choice-list').forEach(list => {
+      if(list.dataset?.choiceShuffle === 'off') return;
+      const cards = Array.from(list.children).filter(el => el.classList.contains('choice-card'));
+      if(cards.length !== 4) return;
+      randomShuffle(cards).forEach((card, index) => {
+        list.appendChild(card);
+        const key = card.querySelector('.choice-card-key');
+        if(key) key.textContent = DS_LETTERS[index];
+      });
+    });
+  }
+}
+function getCheckboxValues(name){
+  return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+}
+let choiceLayoutFrame = 0;
+let choiceLayoutResizeTimer = 0;
+function choiceCardPreferredWidth(card){
+  const text = card?.querySelector('.choice-card-text');
+  if(!text) return 180;
+  const probe = text.cloneNode(true);
+  probe.removeAttribute('id');
+  probe.setAttribute('aria-hidden', 'true');
+  Object.assign(probe.style, {
+    position:'fixed', left:'-10000px', top:'0', width:'max-content', maxWidth:'none',
+    minWidth:'0', display:'inline-block', visibility:'hidden', whiteSpace:'nowrap',
+    pointerEvents:'none'
+  });
+  document.body.appendChild(probe);
+  const textWidth = Math.ceil(probe.getBoundingClientRect().width || probe.scrollWidth || 0);
+  probe.remove();
+  const keyWidth = card.querySelector('.choice-card-key') ? 50 : 0;
+  return Math.min(1800, Math.max(80, textWidth + keyWidth + 28));
+}
+function updateChoiceCardColumns(root=document){
+  if(!document.body.classList.contains('modern-slide-mode')) return;
+  const scope = root && root.querySelectorAll ? root : document;
+  scope.querySelectorAll('.question[data-question-type="tn"] .tn-choice-list').forEach(list => {
+    const available = Math.floor(list.getBoundingClientRect().width || list.clientWidth || 0);
+    if(available < 1) return;
+    const cards = Array.from(list.querySelectorAll(':scope > .choice-card'));
+    if(!cards.length) return;
+    const preferred = Math.max(...cards.map(choiceCardPreferredWidth));
+    const fourColumnWidth = (available - 30) / 4;
+    const twoColumnWidth = (available - 10) / 2;
+    let columns = 1;
+    if(cards.length >= 4 && available >= 760 && preferred <= fourColumnWidth * 1.06){
+      columns = 4;
+    }else if(cards.length >= 2 && available >= 480 && preferred <= twoColumnWidth * 1.06){
+      columns = 2;
+    }
+    list.classList.remove('choice-columns-1', 'choice-columns-2', 'choice-columns-4');
+    list.classList.add('choice-columns-' + columns);
+    list.dataset.choiceColumns = String(columns);
+  });
+}
+function scheduleChoiceCardLayout(root=document, waitForMathJax=false){
+  const applyLayout = () => {
+    if(choiceLayoutFrame) cancelAnimationFrame(choiceLayoutFrame);
+    choiceLayoutFrame = requestAnimationFrame(() => {
+      choiceLayoutFrame = 0;
+      updateChoiceCardColumns(root);
+    });
+  };
+  const mathReady = waitForMathJax && window.MathJax?.startup?.promise;
+  if(mathReady && typeof mathReady.then === 'function'){
+    mathReady.then(applyLayout, applyLayout);
+  }else{
+    applyLayout();
+  }
+}
+function useImageFallback(image){
+  if(!image || image.dataset.fallbackUsed === '1') return;
+  image.dataset.fallbackUsed = '1';
+  image.src = image.dataset.fallbackSrc || '';
+}
+function collectTrueFalseAnswer(index){
+  return DS_LETTERS
+    .filter(letter => getRadioValue('ds' + index + '_' + letter.toLowerCase()) === 'D')
+    .join(', ');
+}
+function isTrueFalseComplete(index){
+  return DS_LETTERS.every(letter => getRadioValue('ds' + index + '_' + letter.toLowerCase()));
+}
+function shortAnswerInputs(index){
+  return Array.from(document.querySelectorAll(`[data-short-question="${index}"]`));
+}
+function collectShortAnswer(index){
+  return shortAnswerInputs(index).map(input => input.value).join('');
+}
+function formatBehaviorClock(ms){
+  const total = Math.max(0, Math.round(Number(ms || 0) / 1000));
+  const minutes = Math.floor(total / 60);
+  const seconds = total % 60;
+  return String(minutes).padStart(2, '0') + ':' + String(seconds).padStart(2, '0');
+}
+function behaviorElapsedMs(){
+  if(!examStartedAt) return 0;
+  return Math.max(0, Date.now() - examStartedAt.getTime());
+}
+function behaviorQuestionKey(questionIndex){
+  return String(Math.max(1, Number(questionIndex || 1)));
+}
+function ensureBehaviorLog(questionIndex){
+  const key = behaviorQuestionKey(questionIndex);
+  if(!behaviorState.logs.has(key)){
+    behaviorState.logs.set(key, {question_index:Number(key), total_ms:0, events:[], visits:0});
+  }
+  return behaviorState.logs.get(key);
+}
+function behaviorLabelForQuestion(questionIndex){
+  const el = behaviorState.questions.find(q => Number(q.dataset.questionIndex || 0) === Number(questionIndex));
+  return el ? String(el.dataset.questionLabel || ('Câu ' + questionIndex)) : ('Câu ' + questionIndex);
+}
+function behaviorSlideLabel(question, fallbackIndex){
+  return question ? String(question.dataset.questionLabel || ('Câu ' + fallbackIndex)) : ('Câu ' + fallbackIndex);
+}
+function logBehavior(questionIndex, label, value=''){
+  if(!BEHAVIOR_TRACKING_MODE || !examStartedAt) return;
+  const log = ensureBehaviorLog(questionIndex);
+  log.events.push({
+    t_ms: behaviorElapsedMs(),
+    label: String(label || ''),
+    value: String(value || '')
+  });
+}
+function currentQuestionIndexFromElement(element){
+  const question = element && element.closest ? element.closest('.question[data-question-index]') : null;
+  return question ? Number(question.dataset.questionIndex || 0) : 0;
+}
+function answerSnapshotForQuestion(questionElement){
+  if(!questionElement) return '';
+  const type = String(questionElement.dataset.questionType || '');
+  const local = Number(questionElement.dataset.questionLocal || 0);
+  if(type === 'tn') return tnAnswerForLog(local);
+  if(type === 'ds') return collectTrueFalseAnswer(local);
+  if(type === 'tl') return collectShortAnswer(local);
+  if(type === 'luan'){
+    const text = value('luan' + local);
+    const imageCount = essayImageFiles(local).length;
+    if(text && imageCount) return text + ' (' + imageCount + ' ảnh)';
+    if(imageCount) return imageCount + ' ảnh';
+    return text;
+  }
+  return '';
+}
+function reviewDataForQuestion(questionElement){
+  if(!questionElement) return {state:'missing', status:'Chưa làm', answer:'Chưa làm'};
+  const type = String(questionElement.dataset.questionType || '');
+  const local = Number(questionElement.dataset.questionLocal || 0);
+  if(type === 'tn'){
+    const selected = displayedTnAnswer(local);
+    return selected
+      ? {state:'done', status:'Đã làm', answer:'Đáp án ' + selected}
+      : {state:'missing', status:'Chưa làm', answer:'Chưa chọn đáp án'};
+  }
+  if(type === 'ds'){
+    let answered = 0;
+    const details = DS_LETTERS.map(letter => {
+      const selected = getRadioValue('ds' + local + '_' + letter.toLowerCase());
+      if(selected) answered += 1;
+      const label = selected === 'D' ? 'Đúng' : (selected === 'S' ? 'Sai' : 'Chưa chọn');
+      return letter.toLowerCase() + ') ' + label;
+    });
+    if(answered === DS_LETTERS.length){
+      return {state:'done', status:'Đã làm', answer:details.join(' · ')};
+    }
+    if(answered){
+      return {state:'partial', status:'Chưa hoàn tất', answer:details.join(' · ')};
+    }
+    return {state:'missing', status:'Chưa làm', answer:details.join(' · ')};
+  }
+  if(type === 'tl'){
+    const characters = shortAnswerInputs(local).map(input => input.value || '□');
+    const hasValue = characters.some(character => character !== '□');
+    return hasValue
+      ? {state:'done', status:'Đã làm', answer:'Đáp án ' + characters.join('')}
+      : {state:'missing', status:'Chưa làm', answer:'Chưa nhập đáp án'};
+  }
+  if(type === 'luan'){
+    const text = value('luan' + local);
+    const imageCount = essayImageFiles(local).length;
+    const details = [];
+    if(text) details.push(text);
+    if(imageCount) details.push(imageCount + ' ảnh đính kèm');
+    return details.length
+      ? {state:'done', status:'Đã làm', answer:details.join('\n')}
+      : {state:'missing', status:'Chưa làm', answer:'Chưa nhập bài làm'};
+  }
+  return {state:'missing', status:'Chưa làm', answer:'Chưa có đáp án'};
+}
+function renderBehaviorSummary(){
+  const list = $('behaviorSummaryList');
+  if(!list) return;
+  list.replaceChildren();
+  let completed = 0;
+  behaviorState.questions.forEach((question, index) => {
+    const review = reviewDataForQuestion(question);
+    if(review.state === 'done') completed += 1;
+    const item = document.createElement('button');
+    item.type = 'button';
+    item.className = 'behavior-summary-item is-' + review.state;
+    item.setAttribute('aria-label', behaviorSlideLabel(question, index + 1) + ': ' + review.status + '. Bấm để xem lại câu hỏi.');
+    item.addEventListener('click', () => moveBehaviorQuestion(index, 'Xem lại từ trang tổng kết'));
+
+    const label = document.createElement('span');
+    label.className = 'behavior-summary-question';
+    label.textContent = behaviorSlideLabel(question, index + 1);
+    const answer = document.createElement('span');
+    answer.className = 'behavior-summary-answer';
+    answer.textContent = review.answer;
+    const status = document.createElement('span');
+    status.className = 'behavior-summary-status';
+    status.textContent = review.status;
+    item.append(label, answer, status);
+    list.appendChild(item);
+  });
+  const total = behaviorState.questions.length;
+  const done = $('behaviorSummaryDone');
+  const missing = $('behaviorSummaryMissing');
+  if(done) done.textContent = 'Đã làm: ' + completed + '/' + total;
+  if(missing) missing.textContent = 'Còn lại: ' + (total - completed);
+}
+function showBehaviorSummary(){
+  if(!SLIDE_EXAM_MODE || !behaviorState.questions.length || !examStartedAt) return;
+  finalizeActiveBehaviorQuestion();
+  behaviorState.currentSlide = behaviorState.questions.length;
+  behaviorState.activeQuestionIndex = 0;
+  behaviorState.activeEnteredAt = 0;
+  document.querySelectorAll('#exam .section-block').forEach(section => {
+    section.classList.remove('behavior-active-section');
+  });
+  behaviorState.questions.forEach(question => {
+    question.classList.remove('behavior-active-question');
+  });
+  const summary = $('behaviorSummary');
+  if(summary) summary.classList.add('behavior-summary-active');
+  renderBehaviorSummary();
+  updateBehaviorSlideUi();
+  if(summary) setTimeout(() => summary.focus(), 0);
+}
+function openBehaviorSummary(){
+  if(!SLIDE_EXAM_MODE) return;
+  moveBehaviorQuestion(behaviorState.questions.length, 'Mở trang tổng kết');
+}
+function isBehaviorSummaryActive(){
+  return SLIDE_EXAM_MODE && behaviorState.currentSlide >= behaviorState.questions.length;
+}
+function finalizeActiveBehaviorQuestion(){
+  if(!BEHAVIOR_TRACKING_MODE || !behaviorState.activeQuestionIndex || !behaviorState.activeEnteredAt) return;
+  const log = ensureBehaviorLog(behaviorState.activeQuestionIndex);
+  log.total_ms += Math.max(0, Date.now() - behaviorState.activeEnteredAt);
+  behaviorState.activeEnteredAt = 0;
+}
+function enterBehaviorQuestion(slideIndex, reason=''){
+  if(!SLIDE_EXAM_MODE || !behaviorState.questions.length || !examStartedAt) return;
+  slideIndex = Math.max(0, Math.min(slideIndex, behaviorState.questions.length - 1));
+  finalizeActiveBehaviorQuestion();
+  behaviorState.currentSlide = slideIndex;
+  document.querySelectorAll('#exam .section-block').forEach(section => {
+    section.classList.remove('behavior-active-section');
+  });
+  behaviorState.questions.forEach(question => {
+    question.classList.remove('behavior-active-question');
+  });
+  const summary = $('behaviorSummary');
+  if(summary) summary.classList.remove('behavior-summary-active');
+  const question = behaviorState.questions[slideIndex];
+  question.classList.add('behavior-active-question');
+  const section = question.closest('.section-block');
+  if(section) section.classList.add('behavior-active-section');
+  const questionIndex = Number(question.dataset.questionIndex || slideIndex + 1);
+  const log = ensureBehaviorLog(questionIndex);
+  log.visits += 1;
+  behaviorState.activeQuestionIndex = questionIndex;
+  behaviorState.activeEnteredAt = Date.now();
+  logBehavior(questionIndex, log.visits > 1 ? 'Bắt đầu làm lại' : 'Bắt đầu làm');
+  updateBehaviorSlideUi();
+  scheduleChoiceCardLayout(question);
+  const firstInput = question.querySelector('input:not([type="hidden"]), textarea, select');
+  if(firstInput) setTimeout(() => firstInput.focus(), 0);
+}
+function updateBehaviorSlideUi(){
+  if(!SLIDE_EXAM_MODE) return;
+  const total = behaviorState.questions.length;
+  const isSummary = behaviorState.currentSlide >= total;
+  const current = isSummary ? total + 1 : behaviorState.currentSlide + 1;
+  const question = behaviorState.questions[behaviorState.currentSlide];
+  const title = $('behaviorSlideTitle');
+  const meta = $('behaviorSlideMeta');
+  const prev = $('behaviorPrevBtn');
+  const next = $('behaviorNextBtn');
+  const jump = $('behaviorJumpSelect');
+  if(title) title.textContent = isSummary ? 'Trang cuối - Tổng kết bài làm' : behaviorSlideLabel(question, current);
+  if(meta) meta.textContent = 'Trang ' + current + '/' + (total + 1);
+  if(prev) prev.disabled = behaviorState.currentSlide <= 0;
+  if(next){
+    next.disabled = isSummary;
+    next.textContent = !isSummary && behaviorState.currentSlide === total - 1
+      ? 'Tổng kết →'
+      : 'Tiếp theo →';
+  }
+  if(jump) jump.value = String(behaviorState.currentSlide);
+}
+function populateBehaviorJumpSelect(){
+  const jump = $('behaviorJumpSelect');
+  if(!jump) return;
+  jump.innerHTML = '';
+  behaviorState.questions.forEach((question, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = behaviorSlideLabel(question, index + 1);
+    jump.appendChild(option);
+  });
+  const summaryOption = document.createElement('option');
+  summaryOption.value = String(behaviorState.questions.length);
+  summaryOption.textContent = 'Trang cuối - Tổng kết';
+  jump.appendChild(summaryOption);
+}
+function moveBehaviorQuestion(targetSlide, actionLabel){
+  if(!SLIDE_EXAM_MODE || !behaviorState.questions.length) return;
+  targetSlide = Number(targetSlide);
+  if(!Number.isFinite(targetSlide)) targetSlide = behaviorState.currentSlide;
+  targetSlide = Math.max(0, Math.min(targetSlide, behaviorState.questions.length));
+  if(targetSlide === behaviorState.currentSlide){
+    if(targetSlide === behaviorState.questions.length) renderBehaviorSummary();
+    updateBehaviorSlideUi();
+    return;
+  }
+  const currentQuestion = behaviorState.questions[behaviorState.currentSlide];
+  const targetQuestion = behaviorState.questions[targetSlide];
+  if(currentQuestion){
+    const questionIndex = Number(currentQuestion.dataset.questionIndex || behaviorState.currentSlide + 1);
+    const answer = answerSnapshotForQuestion(currentQuestion);
+    if(answer) recordBehaviorAnswerChange(currentQuestion, answer);
+    const targetLabel = targetSlide === behaviorState.questions.length
+      ? 'Trang tổng kết'
+      : behaviorSlideLabel(targetQuestion, targetSlide + 1);
+    const detail = (targetLabel ? 'Đến ' + targetLabel : '') + (answer ? ' | Đáp án hiện tại: ' + answer : '');
+    logBehavior(questionIndex, actionLabel, detail);
+  }
+  if(targetSlide === behaviorState.questions.length){
+    showBehaviorSummary();
+  }else{
+    enterBehaviorQuestion(targetSlide);
+  }
+}
+function goBehaviorQuestion(delta){
+  if(!SLIDE_EXAM_MODE) return;
+  moveBehaviorQuestion(
+    behaviorState.currentSlide + Number(delta || 0),
+    delta > 0 ? 'Sang câu tiếp theo' : 'Quay lại câu trước'
+  );
+}
+function jumpBehaviorQuestion(value){
+  if(!SLIDE_EXAM_MODE) return;
+  moveBehaviorQuestion(Number(value || 0), 'Chuyển nhanh đến câu khác');
+}
+function initBehaviorTracking(){
+  if(!SLIDE_EXAM_MODE) return;
+  document.body.classList.add('behavior-mode');
+  behaviorState.questions = Array.from(document.querySelectorAll('.question[data-question-index]'));
+  behaviorState.questions.forEach((question, index) => {
+    if(!question.dataset.questionIndex) question.dataset.questionIndex = String(index + 1);
+    const section = question.closest('.section-block');
+    if(section) section.classList.remove('behavior-active-section');
+  });
+  populateBehaviorJumpSelect();
+  updateBehaviorSlideUi();
+}
+function startBehaviorTracking(){
+  if(!SLIDE_EXAM_MODE || !behaviorState.questions.length) return;
+  enterBehaviorQuestion(0);
+}
+function behaviorQuestionChangeLabel(question, newAnswer, oldAnswer){
+  const type = String(question.dataset.questionType || '');
+  if(oldAnswer && oldAnswer !== newAnswer) return 'Đổi đáp án';
+  if(type === 'tl') return 'Nhập đáp án';
+  return 'Chọn đáp án';
+}
+function recordBehaviorAnswerChange(element, explicitValue=''){
+  if(!BEHAVIOR_TRACKING_MODE || !examStartedAt) return;
+  const question = element && element.closest ? element.closest('.question[data-question-index]') : null;
+  if(!question) return;
+  if(String(question.dataset.questionType || '') === 'luan'){
+    settleEssayEdit(question.querySelector('textarea.essay-textarea'));
+    return;
+  }
+  const questionIndex = Number(question.dataset.questionIndex || 0);
+  const newAnswer = explicitValue || answerSnapshotForQuestion(question);
+  const key = behaviorQuestionKey(questionIndex);
+  const oldAnswer = behaviorState.lastAnswers.get(key) || '';
+  if(newAnswer === oldAnswer && oldAnswer) return;
+  behaviorState.lastAnswers.set(key, newAnswer);
+  const label = behaviorQuestionChangeLabel(question, newAnswer, oldAnswer);
+  const value = oldAnswer && oldAnswer !== newAnswer
+    ? 'Từ ' + oldAnswer + ' sang ' + (newAnswer || 'trống')
+    : (newAnswer ? 'Đáp án: ' + newAnswer : '');
+  logBehavior(questionIndex, label, value);
+}
+function queueBehaviorAnswerChange(element, delay=650){
+  if(!BEHAVIOR_TRACKING_MODE) return;
+  const questionIndex = currentQuestionIndexFromElement(element);
+  if(!questionIndex) return;
+  const key = behaviorQuestionKey(questionIndex);
+  if(behaviorState.timers.has(key)) clearTimeout(behaviorState.timers.get(key));
+  behaviorState.timers.set(key, setTimeout(() => {
+    behaviorState.timers.delete(key);
+    recordBehaviorAnswerChange(element);
+  }, delay));
+}
+// Bài tự luận: không ghi theo từng lần gõ. Khi học sinh ngừng gõ, so với lần
+// chốt trước; chỉ ghi khi bỏ đi một đoạn dài (xóa hẳn hoặc viết lại nội dung).
+const ESSAY_LONG_EDIT_CHARS = 30;
+const ESSAY_REWRITE_MIN_CHARS = 10;
+const ESSAY_EDIT_SETTLE_MS = 2000;
+const essayEditState = new Map();
+function essayEditSegments(before, after){
+  let start = 0;
+  const limit = Math.min(before.length, after.length);
+  while(start < limit && before[start] === after[start]) start++;
+  let endBefore = before.length;
+  let endAfter = after.length;
+  while(endBefore > start && endAfter > start && before[endBefore - 1] === after[endAfter - 1]){
+    endBefore--;
+    endAfter--;
+  }
+  return {removed: before.slice(start, endBefore), inserted: after.slice(start, endAfter)};
+}
+function essaySnippet(text, limit=120){
+  const clean = String(text || '').replace(/\s+/g, ' ').trim();
+  return clean.length > limit ? clean.slice(0, limit) + '…' : clean;
+}
+function essayEditIsSignificant(removed, before){
+  // Bỏ một đoạn dài, hoặc viết lại từ một nửa bài trở lên; sửa vài chữ thì bỏ qua.
+  const gone = removed.replace(/\s/g, '').length;
+  const total = before.replace(/\s/g, '').length;
+  return gone >= ESSAY_LONG_EDIT_CHARS || (gone >= ESSAY_REWRITE_MIN_CHARS && gone * 2 >= total);
+}
+function settleEssayEdit(textarea){
+  if(!textarea) return;
+  const state = essayEditState.get(textarea.id);
+  const questionIndex = currentQuestionIndexFromElement(textarea);
+  if(!state || !questionIndex) return;
+  if(state.timer){ clearTimeout(state.timer); state.timer = 0; }
+  const current = textarea.value || '';
+  const before = state.baseline;
+  const {removed, inserted} = essayEditSegments(before, current);
+  state.baseline = current;
+  if(!essayEditIsSignificant(removed, before)) return;
+  if(inserted.trim()){
+    logBehavior(questionIndex, 'Thay đổi nội dung',
+      'Bỏ “' + essaySnippet(removed) + '”, thay bằng “' + essaySnippet(inserted) + '”');
+  }else{
+    logBehavior(questionIndex, 'Xóa đoạn dài',
+      'Xóa ' + removed.length + ' ký tự: “' + essaySnippet(removed) + '”');
+  }
+}
+function trackEssayEdit(textarea){
+  if(!BEHAVIOR_TRACKING_MODE || !examStartedAt) return;
+  let state = essayEditState.get(textarea.id);
+  if(!state){
+    state = {baseline: '', timer: 0};
+    essayEditState.set(textarea.id, state);
+  }
+  if(state.timer) clearTimeout(state.timer);
+  state.timer = setTimeout(() => settleEssayEdit(textarea), ESSAY_EDIT_SETTLE_MS);
+}
+function flushEssayEdits(){
+  essayEditState.forEach((_state, id) => settleEssayEdit(document.getElementById(id)));
+}
+function initBehaviorInputListeners(){
+  if(!BEHAVIOR_TRACKING_MODE) return;
+  document.querySelectorAll('.question input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => recordBehaviorAnswerChange(input));
+  });
+  document.querySelectorAll('.question input[type="text"]').forEach(input => {
+    input.addEventListener('input', () => queueBehaviorAnswerChange(input));
+  });
+  document.querySelectorAll('.question textarea.essay-textarea').forEach(textarea => {
+    textarea.addEventListener('input', () => trackEssayEdit(textarea));
+  });
+}
+function collectBehaviorLogs(){
+  if(!BEHAVIOR_TRACKING_MODE) return [];
+  behaviorState.timers.forEach(timer => clearTimeout(timer));
+  behaviorState.timers.clear();
+  flushEssayEdits();
+  const currentQuestion = behaviorState.questions[behaviorState.currentSlide];
+  if(currentQuestion){
+    const answer = answerSnapshotForQuestion(currentQuestion);
+    if(answer) recordBehaviorAnswerChange(currentQuestion, answer);
+  }
+  finalizeActiveBehaviorQuestion();
+  return Array.from(behaviorState.logs.values()).map(item => ({
+    question_index: item.question_index,
+    question_label: behaviorLabelForQuestion(item.question_index),
+    total_seconds: Math.max(0, Math.round(Number(item.total_ms || 0) / 1000)),
+    events: (item.events || []).map(event => ({
+      t_seconds: Math.max(0, Math.round(Number(event.t_ms || 0) / 1000)),
+      time_label: formatBehaviorClock(event.t_ms || 0),
+      label: String(event.label || ''),
+      value: String(event.value || '')
+    }))
+  }));
+}
+function essayImageInput(index){ return $('luanImages' + index); }
+function essayImageFiles(index){
+  return essayImageStore.get(String(index)) || [];
+}
+function hasEssayAnswer(index){
+  return Boolean(value('luan' + index) || essayImageFiles(index).length);
+}
+function updateSymbolBar(target){
+  const fab = $('symbolFab');
+  const panel = $('symbolPanel');
+  const showFab = target === 'exam';
+  if(fab) fab.classList.toggle('show', showFab);
+  if(!showFab && panel){ panel.classList.remove('show'); if(fab) fab.classList.remove('active'); }
+}
+function toggleSymbolPanel(force){
+  const panel = $('symbolPanel');
+  const fab = $('symbolFab');
+  if(!panel || !fab) return;
+  const shouldShow = (typeof force === 'boolean') ? force : !panel.classList.contains('show');
+  panel.classList.toggle('show', shouldShow);
+  fab.classList.toggle('active', shouldShow);
+}
+function goTo(target){
+  steps.forEach(step => {
+    $(step).classList.toggle('active', step === target);
+    const marker = $(stepIds[step]);
+    if(!marker) return;
+    marker.classList.toggle('active', step === target);
+    const currentIndex = steps.indexOf(target);
+    const stepIndex = steps.indexOf(step);
+    marker.classList.toggle('done', stepIndex < currentIndex);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  updateSymbolBar(target);
+  if(target === 'exam') scheduleChoiceCardLayout($('exam'));
+}
+let lastFocusedInput = null;
+document.addEventListener('focusin', (e) => {
+  const t = e.target;
+  if(!t || !t.matches) return;
+  if(t.matches('input[type="text"], input[type="email"], textarea') && !t.readOnly && !t.disabled){
+    lastFocusedInput = t;
+  }
+});
+function insertSymbol(sym){
+  const input = lastFocusedInput;
+  if(!input || input.readOnly || input.disabled){
+    const fallback = document.querySelector('#exam.screen.active textarea, #exam.screen.active input[type="text"]');
+    if(!fallback){ alert('Em hãy bấm vào ô cần điền trước, rồi mới chọn ký hiệu nhé!'); return; }
+    fallback.focus();
+    lastFocusedInput = fallback;
+    return insertSymbol(sym);
+  }
+  const start = input.selectionStart ?? input.value.length;
+  const end = input.selectionEnd ?? input.value.length;
+  const inserted = input.classList.contains('short-char') ? Array.from(sym)[0] : sym;
+  input.value = input.value.substring(0, start) + inserted + input.value.substring(end);
+  const pos = start + inserted.length;
+  try{ input.setSelectionRange(pos, pos); }catch(_){}
+  input.focus();
+  input.dispatchEvent(new Event('input', {bubbles:true}));
+}
+function initShortAnswerInputs(){
+  document.querySelectorAll('.short-answer').forEach(group => {
+    const inputs = Array.from(group.querySelectorAll('.short-char'));
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        input.value = Array.from(input.value).slice(0, 1).join('');
+        if(input.value && inputs[index + 1]) inputs[index + 1].focus();
+      });
+      input.addEventListener('keydown', (event) => {
+        if(event.key === 'Backspace' && !input.value && inputs[index - 1]){
+          inputs[index - 1].focus();
+        }else if(event.key === 'ArrowLeft' && inputs[index - 1]){
+          event.preventDefault();
+          inputs[index - 1].focus();
+        }else if(event.key === 'ArrowRight' && inputs[index + 1]){
+          event.preventDefault();
+          inputs[index + 1].focus();
+        }
+      });
+      input.addEventListener('paste', (event) => {
+        const chars = Array.from(event.clipboardData.getData('text')).slice(0, inputs.length - index);
+        if(!chars.length) return;
+        event.preventDefault();
+        chars.forEach((char, offset) => { inputs[index + offset].value = char; });
+        inputs[Math.min(index + chars.length, inputs.length - 1)].focus();
+      });
+    });
+  });
+}
+function fileToDataUrl(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result || ''));
+    reader.onerror = () => reject(new Error('Không đọc được ảnh ' + file.name));
+    reader.readAsDataURL(file);
+  });
+}
+function loadImage(dataUrl, fileName){
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error('Không mở được ảnh ' + fileName));
+    image.src = dataUrl;
+  });
+}
+function canvasToBlob(canvas, quality){
+  return new Promise((resolve, reject) => {
+    canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('Không nén được ảnh.')), 'image/jpeg', quality);
+  });
+}
+function blobToBase64(blob){
+  return fileToDataUrl(blob).then(dataUrl => dataUrl.split(',', 2)[1] || '');
+}
+function jpegFileName(fileName){
+  const base = String(fileName || 'bai-lam').replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9._-]+/g, '_');
+  return (base || 'bai-lam') + '.jpg';
+}
+async function compressEssayImage(file, essayIndex){
+  if(!file.type.startsWith('image/')) throw new Error(file.name + ' không phải là ảnh.');
+  if(file.size > MAX_IMAGE_SOURCE_BYTES) throw new Error(file.name + ' vượt quá 12 MB.');
+  const dataUrl = await fileToDataUrl(file);
+  const image = await loadImage(dataUrl, file.name);
+  const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(image.width, image.height));
+  const canvas = document.createElement('canvas');
+  canvas.width = Math.max(1, Math.round(image.width * scale));
+  canvas.height = Math.max(1, Math.round(image.height * scale));
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+  let blob = await canvasToBlob(canvas, .82);
+  if(blob.size > MAX_IMAGE_UPLOAD_BYTES) blob = await canvasToBlob(canvas, .64);
+  if(blob.size > MAX_IMAGE_UPLOAD_BYTES) throw new Error(file.name + ' vẫn vượt quá 2 MB sau khi nén.');
+  return {
+    essay_index: essayIndex,
+    name: jpegFileName(file.name),
+    mime_type: 'image/jpeg',
+    size_bytes: blob.size,
+    data_base64: await blobToBase64(blob)
+  };
+}
+async function collectFileUploads(){
+  const uploads = [];
+  let totalBytes = 0;
+  for(let essayIndex = 1; essayIndex <= N_LUAN; essayIndex++){
+    const files = essayImageFiles(essayIndex);
+    if(files.length > MAX_ESSAY_IMAGES_PER_QUESTION){
+      throw new Error('Tự luận ' + essayIndex + ' chỉ được chọn tối đa ' + MAX_ESSAY_IMAGES_PER_QUESTION + ' ảnh.');
+    }
+    for(const file of files){
+      const upload = await compressEssayImage(file, essayIndex);
+      totalBytes += upload.size_bytes;
+      if(totalBytes > MAX_TOTAL_UPLOAD_BYTES) throw new Error('Tổng dung lượng ảnh sau khi nén vượt quá 8 MB.');
+      uploads.push(upload);
+    }
+  }
+  return uploads;
+}
+function renderEssayImagePreview(essayIndex){
+  essayIndex = String(essayIndex);
+  const box = $('luanImagesPreview' + essayIndex);
+  if(!box) return;
+  box.innerHTML = '';
+  const files = essayImageFiles(essayIndex);
+  files.forEach((file, offset) => {
+    const figure = document.createElement('figure');
+    const image = document.createElement('img');
+    const caption = document.createElement('figcaption');
+    const remove = document.createElement('button');
+    image.src = URL.createObjectURL(file);
+    image.onload = () => URL.revokeObjectURL(image.src);
+    image.alt = file.name;
+    caption.textContent = file.name;
+    caption.title = file.name;
+    remove.type = 'button';
+    remove.className = 'essay-preview-remove';
+    remove.title = 'Bỏ ảnh';
+    remove.setAttribute('aria-label', 'Bỏ ảnh ' + file.name);
+    remove.textContent = '×';
+    remove.addEventListener('click', () => removeEssayImage(essayIndex, offset));
+    figure.append(image, caption, remove);
+    box.appendChild(figure);
+  });
+  const count = $('luanImagesCount' + essayIndex);
+  if(count) count.textContent = files.length ? files.length + '/4 ảnh' : 'Dán ảnh bằng Ctrl+V';
+}
+function appendEssayImages(essayIndex, files){
+  essayIndex = String(essayIndex);
+  const current = essayImageFiles(essayIndex);
+  const incoming = Array.from(files || []).filter(file => file && file.type.startsWith('image/'));
+  if(!incoming.length) return;
+  if(current.length + incoming.length > MAX_ESSAY_IMAGES_PER_QUESTION){
+    alert('Mỗi câu tự luận chỉ được chọn tối đa ' + MAX_ESSAY_IMAGES_PER_QUESTION + ' ảnh.');
+    return;
+  }
+  essayImageStore.set(essayIndex, current.concat(incoming));
+  renderEssayImagePreview(essayIndex);
+  const input = essayImageInput(essayIndex);
+  const questionIndex = currentQuestionIndexFromElement(input);
+  if(questionIndex){
+    logBehavior(questionIndex, 'Chèn ảnh bài làm', incoming.length + ' ảnh');
+    const question = input && input.closest ? input.closest('.question') : null;
+    recordBehaviorAnswerChange(input, answerSnapshotForQuestion(question));
+  }
+}
+function removeEssayImage(essayIndex, offset){
+  const files = essayImageFiles(essayIndex).slice();
+  files.splice(offset, 1);
+  essayImageStore.set(String(essayIndex), files);
+  renderEssayImagePreview(essayIndex);
+  const input = essayImageInput(essayIndex);
+  const questionIndex = currentQuestionIndexFromElement(input);
+  if(questionIndex){
+    logBehavior(questionIndex, 'Bỏ ảnh bài làm');
+    const question = input && input.closest ? input.closest('.question') : null;
+    recordBehaviorAnswerChange(input, answerSnapshotForQuestion(question));
+  }
+}
+function initEssayImageInputs(){
+  document.querySelectorAll('.essay-image-input').forEach(input => {
+    input.addEventListener('change', () => {
+      appendEssayImages(input.dataset.essayIndex, input.files);
+      input.value = '';
+      finishEssayImagePicker();
+    });
+  });
+  document.querySelectorAll('.essay-textarea').forEach(textarea => {
+    textarea.addEventListener('paste', event => {
+      const files = Array.from(event.clipboardData?.items || [])
+        .filter(item => item.kind === 'file' && item.type.startsWith('image/'))
+        .map(item => item.getAsFile())
+        .filter(Boolean);
+      if(!files.length) return;
+      event.preventDefault();
+      appendEssayImages(textarea.dataset.essayIndex, files);
+    });
+  });
+}
+function setCameraStatus(text, type=''){
+  const el = $('proctorStatus');
+  if(!el) return;
+  el.textContent = text || '';
+  el.className = 'proctor-status ' + (type || '');
+}
+function setCameraRetryVisible(visible, disabled=false){
+  const btn = $('proctorRetryBtn');
+  if(!btn) return;
+  btn.hidden = !visible;
+  btn.disabled = Boolean(disabled);
+}
+function rememberIntegrityEvidence(evidence, reason=''){
+  if(!evidence || !evidence.data_base64) return;
+  const dataBase64 = String(evidence.data_base64 || '');
+  if(!dataBase64 || dataBase64.length > 400000) return;
+  integrityEvidenceUploads.length = 0;
+  integrityEvidenceUploads.push({
+    upload_type: 'integrity_evidence',
+    integrity_reason: String(reason || evidence.integrity_reason || ''),
+    essay_index: 0,
+    name: String(evidence.name || ('camera-violation-' + Date.now() + '.jpg')),
+    mime_type: 'image/jpeg',
+    size_bytes: Number(evidence.size_bytes || Math.ceil(dataBase64.length * .75)),
+    data_base64: dataBase64
+  });
+}
+function captureLocalCameraEvidence(reason=''){
+  const video = cameraMonitor.video;
+  if(!video || !video.videoWidth || !video.videoHeight) return;
+  try{
+    const canvas = document.createElement('canvas');
+    const scale = Math.min(1, 360 / video.videoWidth);
+    canvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+    canvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataUrl = canvas.toDataURL('image/jpeg', .58);
+    rememberIntegrityEvidence({
+      name:'camera-violation-' + Date.now() + '.jpg',
+      data_base64:dataUrl.split(',', 2)[1] || ''
+    }, reason);
+  }catch(_){}
+}
+function showCameraPanel(){
+  const box = $('proctorBox');
+  if(box) box.classList.add('show');
+}
+function hideCameraPanel(){
+  const box = $('proctorBox');
+  if(box) box.classList.remove('show');
+}
+function setLocalCameraPreviewVisible(visible){
+  const frame = document.querySelector('#proctorBox .proctor-frame');
+  if(frame) frame.classList.toggle('popup-mode', !visible);
+}
+function ensureCameraCanvases(){
+  if(!cameraMonitor.video) cameraMonitor.video = $('proctorVideo');
+  if(!cameraMonitor.canvas) cameraMonitor.canvas = $('proctorCanvas');
+  if(cameraMonitor.canvas && !cameraMonitor.ctx) cameraMonitor.ctx = cameraMonitor.canvas.getContext('2d');
+  if(!cameraMonitor.sampleCanvas){
+    cameraMonitor.sampleCanvas = document.createElement('canvas');
+    cameraMonitor.sampleCanvas.width = 96;
+    cameraMonitor.sampleCanvas.height = 72;
+    cameraMonitor.sampleCtx = cameraMonitor.sampleCanvas.getContext('2d', {willReadFrequently:true});
+  }
+}
+function cameraPermissionMessage(error){
+  const name = String(error && error.name || '');
+  if(name === 'NotAllowedError' || name === 'SecurityError'){
+    return 'Chrome chưa cấp quyền camera. Hãy bấm Bật camera rồi chọn Cho phép nếu trình duyệt hỏi quyền.';
+  }
+  if(name === 'NotFoundError' || name === 'DevicesNotFoundError'){
+    return 'Không tìm thấy camera. Hãy kiểm tra webcam rồi bấm Bật camera.';
+  }
+  if(name === 'NotReadableError' || name === 'TrackStartError'){
+    return 'Camera đang bị ứng dụng khác sử dụng. Hãy đóng ứng dụng camera khác rồi bấm Bật camera.';
+  }
+  return 'Camera chưa sẵn sàng. Hãy bấm Bật camera để thử lại.';
+}
+function clearCameraPermissionWait(){
+  if(cameraMonitor.permissionTimer){
+    clearInterval(cameraMonitor.permissionTimer);
+    cameraMonitor.permissionTimer = null;
+  }
+  cameraMonitor.requesting = false;
+  cameraMonitor.permissionPending = false;
+  cameraMonitor.permissionDeadline = 0;
+  cameraMonitor.lastPermissionMessage = '';
+  setCameraRetryVisible(false);
+}
+function cancelPendingCameraStart(message){
+  examActivationPending = false;
+  clearCameraPermissionWait();
+  document.querySelectorAll('#intro input').forEach(input => { input.readOnly = false; });
+  setCameraStatus(message || 'Chưa thể bắt đầu bài thi vì camera chưa sẵn sàng.', 'bad');
+  setCameraRetryVisible(true);
+  showMessage(
+    'introMsg',
+    escapeHtml(message || 'Chưa thể bắt đầu bài thi vì camera chưa sẵn sàng.') +
+      '<br>Em hãy bật camera rồi bấm <b>Bắt đầu làm bài</b> lại.',
+    'bad'
+  );
+}
+function updateCameraPermissionWait(){
+  if(!cameraMonitor.permissionPending || submissionCompleted || integrityTerminated) return;
+  const remaining = Math.max(0, Math.ceil((cameraMonitor.permissionDeadline - Date.now()) / 1000));
+  const base = cameraMonitor.lastPermissionMessage || 'Đang chờ cấp quyền camera.';
+  setCameraStatus(base + ' Còn ' + remaining + ' giây để bật camera.', remaining <= 10 ? 'bad' : '');
+  if(remaining <= 0){
+    if(examStartedAt){
+      terminateExamForViolation('Không cấp quyền camera trong thời gian quy định', true);
+    }else{
+      cancelPendingCameraStart('Không nhận được quyền camera trong thời gian quy định.');
+    }
+  }
+}
+function beginCameraPermissionWait(message, type=''){
+  if(submissionCompleted || integrityTerminated) return;
+  showCameraPanel();
+  pauseIntegrityChecks(CAMERA_PERMISSION_GRACE_MS + 5000);
+  cameraMonitor.permissionPending = true;
+  cameraMonitor.lastPermissionMessage = message || 'Đang chờ cấp quyền camera.';
+  if(!cameraMonitor.permissionDeadline || cameraMonitor.permissionDeadline < Date.now()){
+    cameraMonitor.permissionDeadline = Date.now() + CAMERA_PERMISSION_GRACE_MS;
+  }
+  setCameraRetryVisible(true, cameraMonitor.requesting);
+  updateCameraPermissionWait();
+  if(!cameraMonitor.permissionTimer){
+    cameraMonitor.permissionTimer = setInterval(updateCameraPermissionWait, 1000);
+  }
+}
+function retryCameraPermission(){
+  if(!CAMERA_MONITORING_MODE || cameraMonitor.started || submissionCompleted || integrityTerminated) return;
+  if(!validateIntro()) return;
+  examActivationPending = true;
+  document.querySelectorAll('#intro input').forEach(input => { input.readOnly = true; });
+  showMessage('introMsg','Đang chờ camera sẵn sàng. Nếu Chrome hỏi quyền, em hãy chọn <b>Cho phép</b>.','warn');
+  if(!cameraMonitor.permissionDeadline || cameraMonitor.permissionDeadline < Date.now()){
+    cameraMonitor.permissionDeadline = Date.now() + CAMERA_PERMISSION_GRACE_MS;
+  }
+  if(cameraMonitor.popup && !cameraMonitor.popup.closed){
+    beginCameraPermissionWait('Đang thử bật lại camera trong cửa sổ giám sát.', '');
+    try{
+      cameraMonitor.popup.focus();
+      cameraMonitor.popup.postMessage({type:'mytex-camera-retry'}, '*');
+    }catch(_){}
+    return;
+  }
+  startCameraMonitoring();
+}
+function cameraBoxFromFace(face){
+  const box = face && face.boundingBox;
+  if(!box) return null;
+  return {x:box.x, y:box.y, width:box.width, height:box.height};
+}
+function drawCameraOverlay(box){
+  ensureCameraCanvases();
+  const video = cameraMonitor.video;
+  const canvas = cameraMonitor.canvas;
+  const ctx = cameraMonitor.ctx;
+  if(!video || !canvas || !ctx) return;
+  const width = video.videoWidth || 320;
+  const height = video.videoHeight || 240;
+  if(canvas.width !== width || canvas.height !== height){
+    canvas.width = width;
+    canvas.height = height;
+  }
+  ctx.clearRect(0, 0, width, height);
+  const target = box || cameraMonitor.lastBox;
+  if(!target) return;
+  cameraMonitor.lastBox = target;
+  ctx.save();
+  ctx.fillStyle = 'rgba(241, 194, 50, .20)';
+  ctx.strokeStyle = 'rgba(241, 194, 50, .88)';
+  ctx.lineWidth = Math.max(3, Math.round(width / 120));
+  ctx.setLineDash([10, 7]);
+  ctx.fillRect(target.x, target.y, target.width, target.height);
+  ctx.strokeRect(target.x, target.y, target.width, target.height);
+  ctx.restore();
+}
+function analyzeCameraFrameFallback(){
+  ensureCameraCanvases();
+  const video = cameraMonitor.video;
+  const sample = cameraMonitor.sampleCanvas;
+  const sampleCtx = cameraMonitor.sampleCtx;
+  if(!video || !sample || !sampleCtx || !video.videoWidth) return {present:false, box:null, label:'Camera chưa sẵn sàng'};
+  const width = sample.width;
+  const height = sample.height;
+  sampleCtx.drawImage(video, 0, 0, width, height);
+  const image = sampleCtx.getImageData(0, 0, width, height);
+  const data = image.data;
+  if(!cameraMonitor.baseline){
+    cameraMonitor.baseline = new Uint8ClampedArray(data);
+    return {present:false, box:null, label:'Đang hiệu chuẩn camera'};
+  }
+  let skinCount = 0;
+  let motionCount = 0;
+  let minX = width, minY = height, maxX = 0, maxY = 0;
+  const baseline = cameraMonitor.baseline;
+  for(let y = 0; y < height; y++){
+    for(let x = 0; x < width; x++){
+      const idx = (y * width + x) * 4;
+      const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+      const maxRgb = Math.max(r, g, b);
+      const minRgb = Math.min(r, g, b);
+      const looksLikeSkin =
+        r > 55 && g > 35 && b > 20 && r > g && r > b &&
+        (maxRgb - minRgb) > 18 && Math.abs(r - g) > 8;
+      const diff =
+        Math.abs(r - baseline[idx]) +
+        Math.abs(g - baseline[idx + 1]) +
+        Math.abs(b - baseline[idx + 2]);
+      const moving = diff > 70;
+      if(looksLikeSkin){
+        skinCount++;
+        minX = Math.min(minX, x);
+        minY = Math.min(minY, y);
+        maxX = Math.max(maxX, x);
+        maxY = Math.max(maxY, y);
+      }
+      if(moving) motionCount++;
+      baseline[idx] = Math.round(baseline[idx] * .94 + r * .06);
+      baseline[idx + 1] = Math.round(baseline[idx + 1] * .94 + g * .06);
+      baseline[idx + 2] = Math.round(baseline[idx + 2] * .94 + b * .06);
+    }
+  }
+  const total = width * height;
+  const skinScore = skinCount / total;
+  const motionScore = motionCount / total;
+  const boxWidth = maxX - minX + 1;
+  const boxHeight = maxY - minY + 1;
+  const occupancy = skinCount / Math.max(1, boxWidth * boxHeight);
+  const present =
+    skinScore > .014 && skinScore < .30 &&
+    boxWidth >= width * .06 && boxWidth <= width * .72 &&
+    boxHeight >= height * .08 && boxHeight <= height * .86 &&
+    occupancy > .14;
+  if(!present || minX >= width || minY >= height) return {present:false, box:null, label:'Không phát hiện thí sinh'};
+  const scaleX = (video.videoWidth || 320) / width;
+  const scaleY = (video.videoHeight || 240) / height;
+  return {
+    present:true,
+    box:{
+      x:Math.max(0, minX * scaleX),
+      y:Math.max(0, minY * scaleY),
+      width:Math.max(24, (maxX - minX + 1) * scaleX),
+      height:Math.max(24, (maxY - minY + 1) * scaleY)
+    },
+    label:'Đã phát hiện thí sinh'
+  };
+}
+async function detectCameraPerson(){
+  ensureCameraCanvases();
+  const video = cameraMonitor.video;
+  if(!video || video.readyState < 2) return {present:false, box:null, label:'Camera chưa sẵn sàng'};
+  if(cameraMonitor.faceDetector){
+    try{
+      const faces = await cameraMonitor.faceDetector.detect(video);
+      if(faces && faces.length){
+        const box = cameraBoxFromFace(faces[0]);
+        return {present:true, box, label:'Đã phát hiện thí sinh'};
+      }
+      return {present:false, box:null, label:'Không phát hiện thí sinh trong camera'};
+    }catch(_){
+      cameraMonitor.faceDetector = null;
+    }
+  }
+  return analyzeCameraFrameFallback();
+}
+function checkCameraPresence(){
+  if(!CAMERA_MONITORING_MODE || !cameraMonitor.started || submissionCompleted || integrityTerminated) return;
+  detectCameraPerson().then(result => {
+    if(!cameraMonitor.started || submissionCompleted || integrityTerminated) return;
+    const now = Date.now();
+    drawCameraOverlay(result.box);
+    if(result.present || now < cameraMonitor.warmupUntil){
+      cameraMonitor.missingSince = 0;
+      setCameraStatus(result.label || 'Camera đang theo dõi', result.present ? 'ok' : '');
+      return;
+    }
+    if(!cameraMonitor.missingSince) cameraMonitor.missingSince = now;
+    const elapsed = now - cameraMonitor.missingSince;
+    setCameraStatus('Không phát hiện thí sinh trong camera...', 'bad');
+    if(elapsed >= 1600){
+      terminateExamForViolation('Không phát hiện thí sinh trong camera', true);
+    }
+  }).catch(() => {
+    terminateExamForViolation('Không thể phân tích hình ảnh camera', true);
+  });
+}
+function handleCameraTrackProblem(reason){
+  if(!cameraMonitor.started || submissionCompleted || integrityTerminated) return;
+  if(Date.now() < cameraMonitor.warmupUntil){
+    setCameraStatus(reason + '. Đang chờ camera ổn định...', 'bad');
+    return;
+  }
+  terminateExamForViolation(reason, true);
+}
+function isEmbeddedExamFrame(){
+  try{
+    return window.self !== window.top;
+  }catch(_){
+    return true;
+  }
+}
+function startCameraPopupWatch(){
+  if(cameraMonitor.popupWatchTimer) return;
+  cameraMonitor.popupWatchTimer = setInterval(() => {
+    const popup = cameraMonitor.popup;
+    if(!popup) return;
+    if(popup.closed){
+      cameraMonitor.popup = null;
+      cameraMonitor.popupReady = false;
+      cameraMonitor.started = false;
+      if(cameraMonitor.popupClosing || submissionCompleted || integrityTerminated) return;
+      if(examStartedAt){
+        terminateExamForViolation('Cửa sổ theo dõi camera đã bị đóng', true);
+      }else{
+        beginCameraPermissionWait('Cửa sổ theo dõi camera đã bị đóng. Hãy bấm Bật camera để mở lại.', 'bad');
+      }
+      return;
+    }
+    if(
+      cameraMonitor.popupReady && examStartedAt && cameraMonitor.popupHeartbeatAt &&
+      Date.now() - cameraMonitor.popupHeartbeatAt > 5000
+    ){
+      terminateExamForViolation('Mất kết nối với cửa sổ theo dõi camera', true);
+    }
+  }, 1000);
+}
+function registerCameraPopupMessages(){
+  window.addEventListener('message', event => {
+    if(!cameraMonitor.popup || event.source !== cameraMonitor.popup) return;
+    const data = event.data || {};
+    if(data.type === 'mytex-camera-heartbeat'){
+      cameraMonitor.popupHeartbeatAt = Date.now();
+      return;
+    }
+    if(data.type === 'mytex-camera-evidence'){
+      rememberIntegrityEvidence(data.evidence, data.reason);
+      return;
+    }
+    if(data.type === 'mytex-camera-ready'){
+      rememberIntegrityEvidence(data.evidence);
+      cameraMonitor.mode = 'popup';
+      cameraMonitor.started = true;
+      cameraMonitor.popupReady = true;
+      cameraMonitor.popupHeartbeatAt = Date.now();
+      cameraMonitor.warmupUntil = Date.now() + 3200;
+      clearCameraPermissionWait();
+      setLocalCameraPreviewVisible(false);
+      showCameraPanel();
+      setCameraStatus('Camera đang theo dõi trong cửa sổ riêng.', 'ok');
+      activateExamSession();
+      return;
+    }
+    if(data.type === 'mytex-camera-waiting'){
+      cameraMonitor.started = false;
+      cameraMonitor.popupReady = false;
+      beginCameraPermissionWait(
+        String(data.message || 'Cửa sổ giám sát đang chờ quyền camera.'),
+        'bad'
+      );
+      return;
+    }
+    if(data.type === 'mytex-camera-violation'){
+      const reason = String(data.reason || 'Không phát hiện thí sinh trong camera');
+      rememberIntegrityEvidence(data.evidence, reason);
+      if(examStartedAt){
+        terminateExamForViolation(reason, true);
+      }else{
+        cancelPendingCameraStart(reason);
+      }
+      return;
+    }
+    if(data.type === 'mytex-camera-closed' && !cameraMonitor.popupClosing){
+      rememberIntegrityEvidence(data.evidence, 'Cửa sổ theo dõi camera đã bị đóng');
+      if(examStartedAt){
+        terminateExamForViolation('Cửa sổ theo dõi camera đã bị đóng', true);
+      }else{
+        beginCameraPermissionWait('Cửa sổ theo dõi camera đã bị đóng. Hãy bấm Bật camera để mở lại.', 'bad');
+      }
+    }
+  });
+}
+function openCameraMonitorWindow(){
+  showCameraPanel();
+  setLocalCameraPreviewVisible(false);
+  if(cameraMonitor.popup && !cameraMonitor.popup.closed){
+    beginCameraPermissionWait('Đang chờ quyền camera trong cửa sổ giám sát riêng.', '');
+    try{
+      cameraMonitor.popup.focus();
+      cameraMonitor.popup.postMessage({type:'mytex-camera-retry'}, '*');
+    }catch(_){}
+    return true;
+  }
+  const popupName = 'mytex-camera-' + String(EXAM_ID || 'exam').replace(/[^a-z0-9_-]/gi, '-');
+  const popup = window.open('', popupName, 'popup=yes,width=540,height=570,resizable=yes,scrollbars=no');
+  if(!popup){
+    beginCameraPermissionWait(
+      'Chrome đang chặn cửa sổ camera. Hãy cho phép popup cho trang này rồi bấm Bật camera.',
+      'bad'
+    );
+    return false;
+  }
+  cameraMonitor.popup = popup;
+  cameraMonitor.popupReady = false;
+  cameraMonitor.popupHeartbeatAt = Date.now();
+  cameraMonitor.popupClosing = false;
+  cameraMonitor.mode = 'popup';
+  startCameraPopupWatch();
+  beginCameraPermissionWait(
+    'Đang xin quyền trong cửa sổ camera riêng. Nếu Chrome hỏi quyền, em hãy chọn Cho phép.',
+    ''
+  );
+  const popupHtml = `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MyTeX - Theo dõi camera</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#111827;color:#f8fafc;font:15px Arial,sans-serif}
+    main{padding:14px}.head{font-size:18px;font-weight:800;color:#facc15;margin-bottom:10px}
+    .frame{position:relative;overflow:hidden;border:3px solid #eab308;border-radius:14px;background:#020617;aspect-ratio:4/3}
+    video,canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}canvas{pointer-events:none}
+    #status{min-height:42px;margin:10px 0 0;line-height:1.4;color:#cbd5e1}.bad{color:#fca5a5!important}.ok{color:#86efac!important}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+    button{border:0;border-radius:10px;background:#eab308;color:#422006;padding:10px;font-weight:800;cursor:pointer}
+    button:disabled{opacity:.55;cursor:not-allowed}
+    .note{margin-top:9px;color:#94a3b8;font-size:12px;line-height:1.4}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="head">Theo dõi camera - ${escapeHtml(EXAM_PAGE_TITLE)}</div>
+    <div class="frame"><video id="video" autoplay muted playsinline></video><canvas id="canvas"></canvas></div>
+    <div id="status">Đang xin quyền camera...</div>
+    <div class="actions">
+      <button id="retry" type="button">Bật camera / Thử lại</button>
+      <button id="pin" type="button" disabled>Ghim camera lên màn hình</button>
+    </div>
+    <div class="note">Không đóng cửa sổ này trong thời gian làm bài. Khung vàng mờ hiển thị vùng đang được theo dõi.</div>
+  </main>
+  <script>
+  (function(){
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const sample = document.createElement('canvas');
+    sample.width = 96; sample.height = 72;
+    const sampleCtx = sample.getContext('2d', {willReadFrequently:true});
+    const evidenceCanvas = document.createElement('canvas');
+    let stream = null, detector = null, baseline = null, timer = null;
+    let starting = false, stoppedByParent = false, violationSent = false;
+    let warmupUntil = 0, missingSince = 0, lastBox = null, lastEvidenceAt = 0;
+    function send(type, extra){
+      try{ window.opener.postMessage(Object.assign({type:type}, extra || {}), '*'); }catch(_){}
+    }
+    function setStatus(text, type){
+      const box = document.getElementById('status');
+      box.textContent = text || '';
+      box.className = type || '';
+    }
+    function stopTracks(){
+      if(timer){ clearInterval(timer); timer = null; }
+      if(stream){
+        try{ stream.getTracks().forEach(function(track){ track.onended = null; track.onmute = null; track.stop(); }); }catch(_){}
+      }
+      stream = null;
+    }
+    function captureEvidence(){
+      if(!video.videoWidth || !video.videoHeight) return null;
+      try{
+        const scale = Math.min(1, 360 / video.videoWidth);
+        evidenceCanvas.width = Math.max(1, Math.round(video.videoWidth * scale));
+        evidenceCanvas.height = Math.max(1, Math.round(video.videoHeight * scale));
+        evidenceCanvas.getContext('2d').drawImage(video, 0, 0, evidenceCanvas.width, evidenceCanvas.height);
+        const dataUrl = evidenceCanvas.toDataURL('image/jpeg', .58);
+        const dataBase64 = dataUrl.split(',', 2)[1] || '';
+        if(!dataBase64) return null;
+        return {
+          upload_type:'integrity_evidence',
+          essay_index:0,
+          name:'camera-violation-' + Date.now() + '.jpg',
+          mime_type:'image/jpeg',
+          size_bytes:Math.ceil(dataBase64.length * .75),
+          data_base64:dataBase64
+        };
+      }catch(_){
+        return null;
+      }
+    }
+    function violate(reason){
+      if(violationSent || stoppedByParent) return;
+      violationSent = true;
+      setStatus(reason, 'bad');
+      send('mytex-camera-violation', {reason:reason, evidence:captureEvidence()});
+    }
+    function draw(box){
+      const width = video.videoWidth || 640, height = video.videoHeight || 480;
+      if(canvas.width !== width || canvas.height !== height){ canvas.width = width; canvas.height = height; }
+      ctx.clearRect(0, 0, width, height);
+      const target = box || lastBox;
+      if(!target) return;
+      lastBox = target;
+      ctx.fillStyle = 'rgba(250, 204, 21, .20)';
+      ctx.strokeStyle = 'rgba(250, 204, 21, .92)';
+      ctx.lineWidth = Math.max(3, Math.round(width / 120));
+      ctx.setLineDash([10, 7]);
+      ctx.fillRect(target.x, target.y, target.width, target.height);
+      ctx.strokeRect(target.x, target.y, target.width, target.height);
+    }
+    function fallback(){
+      if(!video.videoWidth) return {present:false, box:null};
+      sampleCtx.drawImage(video, 0, 0, sample.width, sample.height);
+      const data = sampleCtx.getImageData(0, 0, sample.width, sample.height).data;
+      if(!baseline){
+        baseline = new Uint8ClampedArray(data);
+        return {present:false, box:null};
+      }
+      let skin = 0, motion = 0, minX = sample.width, minY = sample.height, maxX = 0, maxY = 0;
+      for(let y = 0; y < sample.height; y++){
+        for(let x = 0; x < sample.width; x++){
+          const i = (y * sample.width + x) * 4;
+          const r = data[i], g = data[i + 1], b = data[i + 2];
+          const maxRgb = Math.max(r,g,b), minRgb = Math.min(r,g,b);
+          const looksLikeSkin = r > 55 && g > 35 && b > 20 && r > g && r > b && maxRgb - minRgb > 18 && Math.abs(r - g) > 8;
+          const moving = Math.abs(r - baseline[i]) + Math.abs(g - baseline[i + 1]) + Math.abs(b - baseline[i + 2]) > 70;
+          if(looksLikeSkin){
+            skin++;
+            minX = Math.min(minX, x); minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x); maxY = Math.max(maxY, y);
+          }
+          if(moving) motion++;
+          baseline[i] = Math.round(baseline[i] * .94 + r * .06);
+          baseline[i + 1] = Math.round(baseline[i + 1] * .94 + g * .06);
+          baseline[i + 2] = Math.round(baseline[i + 2] * .94 + b * .06);
+        }
+      }
+      const total = sample.width * sample.height;
+      const skinScore = skin / total;
+      const boxWidth = maxX - minX + 1, boxHeight = maxY - minY + 1;
+      const occupancy = skin / Math.max(1, boxWidth * boxHeight);
+      const present =
+        skinScore > .014 && skinScore < .30 &&
+        boxWidth >= sample.width * .06 && boxWidth <= sample.width * .72 &&
+        boxHeight >= sample.height * .08 && boxHeight <= sample.height * .86 &&
+        occupancy > .14;
+      if(!present) return {present:false, box:null};
+      const sx = video.videoWidth / sample.width, sy = video.videoHeight / sample.height;
+      return {present:true, box:{x:minX*sx,y:minY*sy,width:Math.max(24,(maxX-minX+1)*sx),height:Math.max(24,(maxY-minY+1)*sy)}};
+    }
+    async function detect(){
+      if(detector){
+        try{
+          const faces = await detector.detect(video);
+          if(faces && faces.length){
+            const b = faces[0].boundingBox;
+            return {present:true, box:{x:b.x,y:b.y,width:b.width,height:b.height}};
+          }
+          return {present:false, box:null};
+        }catch(_){ detector = null; }
+      }
+      return fallback();
+    }
+    async function inspect(){
+      if(!stream || stoppedByParent || violationSent) return;
+      try{
+        const result = await detect();
+        const now = Date.now();
+        draw(result.box);
+        if(result.present || now < warmupUntil){
+          missingSince = 0;
+          setStatus(result.present ? 'Đã phát hiện thí sinh. Camera đang theo dõi.' : 'Đang hiệu chuẩn camera...', result.present ? 'ok' : '');
+          return;
+        }
+        if(!missingSince) missingSince = now;
+        setStatus('Không phát hiện thí sinh trong camera...', 'bad');
+        if(now - missingSince >= 1600) violate('Không phát hiện thí sinh trong camera');
+      }catch(_){
+        violate('Không thể phân tích hình ảnh camera');
+      }
+    }
+    function permissionMessage(error){
+      const name = String(error && error.name || '');
+      if(name === 'NotAllowedError' || name === 'SecurityError') return 'Chrome chưa cấp quyền camera. Hãy chọn Cho phép rồi bấm Bật camera / Thử lại.';
+      if(name === 'NotFoundError' || name === 'DevicesNotFoundError') return 'Không tìm thấy camera. Hãy kiểm tra webcam rồi thử lại.';
+      if(name === 'NotReadableError' || name === 'TrackStartError') return 'Camera đang bị ứng dụng khác sử dụng. Hãy đóng ứng dụng đó rồi thử lại.';
+      return 'Camera chưa sẵn sàng. Hãy kiểm tra quyền camera rồi thử lại.';
+    }
+    async function pinCamera(silent){
+      const pin = document.getElementById('pin');
+      if(!document.pictureInPictureEnabled || !video.requestPictureInPicture){
+        if(!silent) setStatus('Trình duyệt chưa hỗ trợ ghim video. Hãy giữ cửa sổ camera ở phía trước.', 'bad');
+        return;
+      }
+      try{
+        if(!document.pictureInPictureElement) await video.requestPictureInPicture();
+        pin.textContent = 'Camera đã được ghim';
+      }catch(_){
+        if(!silent) setStatus('Chrome cần em bấm lại nút Ghim camera để xác nhận.', 'bad');
+      }
+    }
+    async function start(){
+      if(starting || stoppedByParent) return;
+      starting = true; violationSent = false; missingSince = 0; baseline = null;
+      stopTracks();
+      setStatus('Đang xin quyền camera...', '');
+      try{
+        if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('MediaDevicesUnavailable');
+        stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'user',width:{ideal:640},height:{ideal:480}},audio:false});
+        stream.getVideoTracks().forEach(function(track){
+          track.onended = function(){ violate('Camera bị tắt trong lúc làm bài'); };
+          track.onmute = function(){ violate('Camera bị ngắt tín hiệu trong lúc làm bài'); };
+        });
+        video.srcObject = stream; video.muted = true; video.playsInline = true;
+        await video.play();
+        document.getElementById('pin').disabled = false;
+        if('FaceDetector' in window){
+          try{ detector = new FaceDetector({fastMode:true,maxDetectedFaces:1}); }catch(_){ detector = null; }
+        }
+        warmupUntil = Date.now() + 3200;
+        setStatus('Camera đã sẵn sàng. Đang hiệu chuẩn...', 'ok');
+        send('mytex-camera-ready', {evidence:captureEvidence()});
+        inspect();
+        timer = setInterval(inspect, 700);
+        pinCamera(true);
+      }catch(error){
+        stopTracks();
+        const message = permissionMessage(error);
+        setStatus(message, 'bad');
+        send('mytex-camera-waiting', {message:message});
+      }finally{
+        starting = false;
+      }
+    }
+    document.getElementById('retry').addEventListener('click', start);
+    document.getElementById('pin').addEventListener('click', function(){ pinCamera(false); });
+    video.addEventListener('enterpictureinpicture', function(){ document.getElementById('pin').textContent = 'Camera đã được ghim'; });
+    video.addEventListener('leavepictureinpicture', function(){ document.getElementById('pin').textContent = 'Ghim camera lên màn hình'; });
+    window.addEventListener('message', function(event){
+      const data = event.data || {};
+      if(data.type === 'mytex-camera-retry') start();
+      if(data.type === 'mytex-camera-stop'){
+        stoppedByParent = true;
+        stopTracks();
+        window.close();
+      }
+    });
+    window.addEventListener('beforeunload', function(){
+      if(!stoppedByParent) send('mytex-camera-closed', {evidence:captureEvidence()});
+    });
+    setInterval(function(){
+      send('mytex-camera-heartbeat');
+      if(stream && Date.now() - lastEvidenceAt >= 3000){
+        lastEvidenceAt = Date.now();
+        send('mytex-camera-evidence', {evidence:captureEvidence()});
+      }
+    }, 1000);
+    start();
+  })();
+  <\/script>
+</body>
+</html>`;
+  try{
+    popup.document.open();
+    popup.document.write(popupHtml);
+    popup.document.close();
+    try{ popup.moveTo(Math.max(0, screen.availWidth - 560), 0); }catch(_){}
+    popup.focus();
+    return true;
+  }catch(_){
+    try{ popup.close(); }catch(_){}
+    cameraMonitor.popup = null;
+    beginCameraPermissionWait('Không mở được cửa sổ camera. Hãy cho phép popup rồi bấm Bật camera.', 'bad');
+    return false;
+  }
+}
+async function startCameraMonitoring(){
+  if(!CAMERA_MONITORING_MODE || cameraMonitor.started || cameraMonitor.requesting || submissionCompleted || integrityTerminated) return;
+  if(isEmbeddedExamFrame()){
+    openCameraMonitorWindow();
+    return;
+  }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    beginCameraPermissionWait('Trình duyệt chưa cho phép truy cập camera. Hãy kiểm tra quyền camera hoặc dùng Chrome/Edge mới.', 'bad');
+    return;
+  }
+  showCameraPanel();
+  cameraMonitor.requesting = true;
+  beginCameraPermissionWait('Đang xin quyền camera. Nếu Chrome hỏi quyền, hãy chọn Cho phép.', '');
+  setCameraRetryVisible(true, true);
+  ensureCameraCanvases();
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video:{facingMode:'user', width:{ideal:640}, height:{ideal:480}},
+      audio:false
+    });
+    cameraMonitor.stream = stream;
+    stream.getVideoTracks().forEach(track => {
+      track.addEventListener('ended', () => {
+        handleCameraTrackProblem('Camera bị tắt trong lúc làm bài');
+      });
+      track.addEventListener('mute', () => {
+        handleCameraTrackProblem('Camera bị ngắt tín hiệu trong lúc làm bài');
+      });
+    });
+    cameraMonitor.video.srcObject = stream;
+    cameraMonitor.video.muted = true;
+    cameraMonitor.video.playsInline = true;
+    await cameraMonitor.video.play();
+    clearCameraPermissionWait();
+    if('FaceDetector' in window){
+      try{
+        cameraMonitor.faceDetector = new FaceDetector({fastMode:true, maxDetectedFaces:1});
+      }catch(_){
+        cameraMonitor.faceDetector = null;
+      }
+    }
+    cameraMonitor.started = true;
+    cameraMonitor.mode = 'local';
+    cameraMonitor.warmupUntil = Date.now() + 3200;
+    cameraMonitor.missingSince = 0;
+    setCameraStatus('Camera đang theo dõi thí sinh...', 'ok');
+    checkCameraPresence();
+    cameraMonitor.timer = setInterval(checkCameraPresence, 700);
+    activateExamSession();
+  }catch(error){
+    cameraMonitor.requesting = false;
+    beginCameraPermissionWait(cameraPermissionMessage(error), 'bad');
+  }
+}
+function stopCameraMonitoring(){
+  clearCameraPermissionWait();
+  if(cameraMonitor.timer){
+    clearInterval(cameraMonitor.timer);
+    cameraMonitor.timer = null;
+  }
+  if(cameraMonitor.stream){
+    try{ cameraMonitor.stream.getTracks().forEach(track => track.stop()); }catch(_){}
+  }
+  cameraMonitor.stream = null;
+  if(cameraMonitor.popupWatchTimer){
+    clearInterval(cameraMonitor.popupWatchTimer);
+    cameraMonitor.popupWatchTimer = null;
+  }
+  if(cameraMonitor.popup && !cameraMonitor.popup.closed){
+    cameraMonitor.popupClosing = true;
+    try{ cameraMonitor.popup.postMessage({type:'mytex-camera-stop'}, '*'); }catch(_){}
+    try{ cameraMonitor.popup.close(); }catch(_){}
+  }
+  cameraMonitor.popup = null;
+  cameraMonitor.popupReady = false;
+  cameraMonitor.popupHeartbeatAt = 0;
+  cameraMonitor.started = false;
+  cameraMonitor.mode = '';
+  cameraMonitor.baseline = null;
+  cameraMonitor.missingSince = 0;
+  hideCameraPanel();
+}
+let examStartedAt = null;
+let examDeadline = null;
+let timerHandle = null;
+let timerExpired = false;
+function formatSeconds(totalSeconds){
+  const seconds = Math.max(0, Math.floor(totalSeconds));
+  const mm = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const ss = String(seconds % 60).padStart(2, '0');
+  return mm + ':' + ss;
+}
+function updateCountdown(){
+  if(!examDeadline) return;
+  const remaining = Math.max(0, Math.ceil((examDeadline - Date.now()) / 1000));
+  const box = $('timerBox');
+  const valueBox = $('timerValue');
+  if(valueBox) valueBox.textContent = formatSeconds(remaining);
+  if(box) box.classList.toggle('danger', remaining <= 300);
+  if(remaining === 0 && !timerExpired){
+    timerExpired = true;
+    if(timerHandle) clearInterval(timerHandle);
+    timerHandle = null;
+    alert('Đã hết thời gian làm bài. Phiếu sẽ được nộp tự động.');
+    submitWork(true);
+  }
+}
+function startCountdown(){
+  if(examStartedAt) return;
+  examStartedAt = new Date();
+  if(EXAM_DURATION_MINUTES <= 0) return;
+  examDeadline = Date.now() + EXAM_DURATION_MINUTES * 60 * 1000;
+  const box = $('timerBox');
+  if(box) box.classList.add('show');
+  updateCountdown();
+  timerHandle = setInterval(updateCountdown, 1000);
+}
+function stopCountdown(){
+  if(timerHandle) clearInterval(timerHandle);
+  timerHandle = null;
+}
+function resumeCountdown(){
+  if(!examDeadline || timerHandle || timerExpired) return;
+  updateCountdown();
+  timerHandle = setInterval(updateCountdown, 1000);
+}
+async function requestRealExamFullscreen(force=false){
+  if((!force && !shouldUseProctoredFullscreen()) || !document.documentElement.requestFullscreen) return false;
+  if(fullscreenRequestPending) return false;
+  if(document.fullscreenElement){
+    fullscreenWasActivated = true;
+    return true;
+  }
+  fullscreenRequestPending = true;
+  try{
+    await document.documentElement.requestFullscreen();
+    fullscreenWasActivated = Boolean(document.fullscreenElement);
+    return fullscreenWasActivated;
+  }catch(_){
+    fullscreenWasActivated = false;
+    return false;
+  }finally{
+    fullscreenRequestPending = false;
+  }
+}
+async function enableRealExamMode(){
+  await requestRealExamFullscreen();
+}
+function armInitialFullscreen(){
+  if(!shouldUseProctoredFullscreen() || initialFullscreenArmed) return;
+  initialFullscreenArmed = true;
+  requestRealExamFullscreen();
+  const cleanup = () => {
+    document.removeEventListener('pointerdown', retry, true);
+    document.removeEventListener('keydown', retry, true);
+  };
+  const retry = () => {
+    requestRealExamFullscreen().then(success => {
+      if(success) cleanup();
+    });
+  };
+  document.addEventListener('pointerdown', retry, true);
+  document.addEventListener('keydown', retry, true);
+  window.addEventListener('pagehide', cleanup, {once:true});
+}
+function violationPayloadOptions(reason){
+  return {
+    integrityTerminated: true,
+    integrityViolationReason: String(reason || 'Thao tác bất thường trong chế độ Thi thật')
+  };
+}
+function terminateExamForViolation(reason, showAlert=true){
+  if(!isProtectedExamRunning()) return;
+  if(cameraMonitor.mode === 'local') captureLocalCameraEvidence(reason);
+  integrityTerminated = true;
+  integrityViolationReason = String(reason || 'Thao tác bất thường trong chế độ giám sát bài thi');
+  stopCountdown();
+  stopCameraMonitoring();
+  goTo('submit');
+  setSubmitStatus(
+    '⚠️ Bài thi đã bị dừng do phát hiện vi phạm chế độ giám sát.<br>Lý do: <b>' +
+    escapeHtml(integrityViolationReason) +
+    '</b><br>Hệ thống đang nộp bài ngay lập tức. Lần nộp này sẽ không gửi điểm, kết quả hoặc phiếu kết quả cho học sinh.',
+    'bad'
+  );
+  if(showAlert){
+    alert(
+      'Bài thi đã bị dừng và sẽ được nộp ngay lập tức.\n\nLý do: ' +
+      integrityViolationReason +
+      '\n\nHệ thống không gửi điểm, kết quả hoặc phiếu kết quả cho lần nộp này. ' +
+      'Em hãy liên hệ giáo viên để làm lại bài nghiêm túc theo hướng dẫn.'
+    );
+  }
+  submitWork(true, violationPayloadOptions(integrityViolationReason));
+}
+function sendEmergencySubmission(reason){
+  if(!examStartedAt || !submissionId) return;
+  if(cameraMonitor.mode === 'local') captureLocalCameraEvidence(reason);
+  const payload = buildSubmissionPayload([], violationPayloadOptions(reason));
+  payload.emergency_submit = true;
+  const body = JSON.stringify(payload);
+  try{
+    if(navigator.sendBeacon){
+      navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([body], {type:'text/plain;charset=utf-8'}));
+      return;
+    }
+  }catch(_){}
+  try{
+    fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      keepalive:true,
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body
+    });
+  }catch(_){}
+}
+function triggerIntegrityViolation(reason){
+  if(!isRealExamRunning() || integrityChecksPaused()) return;
+  terminateExamForViolation(reason);
+}
+function emergencyTerminateRealExam(reason){
+  if(!shouldUseProctoredFullscreen() || !examStartedAt) return;
+  if(!integrityViolationReason){
+    integrityViolationReason = String(reason || 'Rời khỏi trang bài thi');
+  }
+  integrityTerminated = true;
+  stopCountdown();
+  sendEmergencySubmission(integrityViolationReason);
+}
+function handleCloseAttempt(reason){
+  if(!shouldUseProctoredFullscreen() || !examStartedAt || submissionCompleted) return false;
+  if(!integrityViolationReason){
+    integrityViolationReason = String(reason || 'Đóng hoặc tải lại tab bài thi');
+  }
+  const firstCloseAttempt = !unloadGuardTriggered;
+  integrityTerminated = true;
+  unloadGuardTriggered = true;
+  stopCountdown();
+  sendEmergencySubmission(integrityViolationReason);
+  if(firstCloseAttempt){
+    goTo('submit');
+    setSubmitStatus(
+      '⚠️ Em đang đóng hoặc tải lại tab trong chế độ Thi thật.<br>' +
+      'Bài thi đã được ghi nhận vi phạm và đang nộp tự động.<br>' +
+      'Lý do: <b>' + escapeHtml(integrityViolationReason) +
+      '</b><br>Lần nộp này sẽ không gửi điểm, kết quả hoặc phiếu kết quả cho học sinh.',
+      'bad'
+    );
+  }
+  if(!submitting){
+    submitWork(true, violationPayloadOptions(integrityViolationReason));
+  }
+  return true;
+}
+function registerIntegrityGuards(){
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) triggerIntegrityViolation('Rời khỏi tab bài thi hoặc thu nhỏ trình duyệt');
+  });
+  window.addEventListener('blur', () => {
+    triggerIntegrityViolation('Cửa sổ bài thi bị mất focus');
+  });
+  window.addEventListener('focus', () => {
+    if(integrityPickerOpen) finishEssayImagePicker();
+  });
+  document.addEventListener('fullscreenchange', () => {
+    if(fullscreenRequestPending) return;
+    if(fullscreenWasActivated && !document.fullscreenElement){
+      triggerIntegrityViolation('Thoát chế độ toàn màn hình');
+    }
+  });
+  document.addEventListener('contextmenu', event => {
+    if(!isRealExamRunning()) return;
+    event.preventDefault();
+    triggerIntegrityViolation('Mở menu chuột phải');
+  }, true);
+  document.addEventListener('copy', event => {
+    if(!isRealExamRunning()) return;
+    event.preventDefault();
+    triggerIntegrityViolation('Sao chép nội dung trong lúc làm bài');
+  }, true);
+  document.addEventListener('cut', event => {
+    if(!isRealExamRunning()) return;
+    event.preventDefault();
+    triggerIntegrityViolation('Cắt nội dung trong lúc làm bài');
+  }, true);
+  document.addEventListener('paste', event => {
+    if(!isRealExamRunning()) return;
+    const target = event.target;
+    const items = Array.from(event.clipboardData?.items || []);
+    const isEssayImagePaste = Boolean(
+      target && target.matches && target.matches('.essay-textarea') &&
+      items.some(item => item.kind === 'file' && item.type.startsWith('image/'))
+    );
+    if(isEssayImagePaste) return;
+    event.preventDefault();
+    triggerIntegrityViolation('Dán văn bản hoặc dữ liệu từ clipboard');
+  }, true);
+  document.addEventListener('keydown', event => {
+    if(!isRealExamRunning()) return;
+    const key = String(event.key || '').toLowerCase();
+    const blockedShortcut =
+      key === 'f12' || key === 'printscreen' ||
+      (event.ctrlKey && event.shiftKey && ['i','j','c'].includes(key)) ||
+      (event.ctrlKey && ['u','p','s'].includes(key));
+    if(!blockedShortcut) return;
+    event.preventDefault();
+    triggerIntegrityViolation('Sử dụng phím tắt bị cấm: ' + String(event.key || ''));
+  }, true);
+  window.addEventListener('beforeprint', () => {
+    triggerIntegrityViolation('Yêu cầu in trang bài thi');
+  });
+  window.addEventListener('pagehide', () => {
+    if(shouldUseProctoredFullscreen() && examStartedAt && !submissionCompleted){
+      emergencyTerminateRealExam(integrityViolationReason || 'Đóng hoặc rời khỏi tab bài thi');
+    }
+  });
+  window.addEventListener('beforeunload', event => {
+    if(!handleCloseAttempt('Đóng hoặc tải lại tab bài thi')) return;
+    event.preventDefault();
+    event.returnValue = 'Bài thi đang ở chế độ giám sát. Nếu rời trang, bài sẽ được nộp tự động và ghi nhận vi phạm.';
+    return event.returnValue;
+  });
+}
+document.addEventListener('DOMContentLoaded', () => {
+  initializeQuestionDisplay();
+  const fab = $('symbolFab');
+  const closeBtn = $('symbolPanelClose');
+  if(fab) fab.addEventListener('click', () => toggleSymbolPanel());
+  if(closeBtn) closeBtn.addEventListener('click', () => toggleSymbolPanel(false));
+  document.querySelectorAll('.sym-btn').forEach(btn => {
+    btn.addEventListener('mousedown', (e) => { e.preventDefault(); });
+    btn.addEventListener('click', () => insertSymbol(btn.dataset.sym));
+  });
+  initShortAnswerInputs();
+  initEssayImageInputs();
+  initBehaviorTracking();
+  initBehaviorInputListeners();
+  scheduleChoiceCardLayout(document);
+  window.addEventListener('resize', () => {
+    if(choiceLayoutResizeTimer) clearTimeout(choiceLayoutResizeTimer);
+    choiceLayoutResizeTimer = setTimeout(() => scheduleChoiceCardLayout(document), 140);
+  });
+  registerIntegrityGuards();
+  registerCameraPopupMessages();
+  const accessInput = $('examAccessCode');
+  if(accessInput){
+    accessInput.addEventListener('input', () => {
+      accessInput.value = String(accessInput.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+    });
+  }
+});
+function unlockExamAccess(event){
+  if(event) event.preventDefault();
+  const input = $('examAccessCode');
+  const code = String(input?.value || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+  if(input) input.value = code;
+  if(code !== EXAM_ACCESS_CODE){
+    showMessage('accessMsg','Mã vào phòng thi chưa đúng. Em hãy kiểm tra lại mã gồm 6 ký tự.','bad');
+    if(input){ input.focus(); input.select(); }
+    return false;
+  }
+  accessGranted = true;
+  hideMessage('accessMsg');
+  const topbar = $('examTopbar');
+  if(topbar) topbar.classList.remove('locked');
+  requestRealExamFullscreen(true);
+  armInitialFullscreen();
+  goTo('intro');
+  setTimeout(() => $('studentName')?.focus(), 0);
+  return false;
+}
+function validateIntro(){
+  if(!accessGranted){
+    goTo('access');
+    showMessage('accessMsg','Em cần nhập đúng mã đề thi trước khi tiếp tục.','bad');
+    return false;
+  }
+  const missing = [];
+  if(!value('studentName')) missing.push('họ tên học sinh');
+  if(!value('studentClass')) missing.push('lớp');
+  if(!value('studentEmail')) missing.push('email');
+  if(missing.length){ showMessage('introMsg','Em cần điền: <b>' + missing.join(', ') + '</b>.','bad'); return false; }
+  if(!isEmail(value('studentEmail'))){ showMessage('introMsg','Email chưa đúng định dạng.','bad'); return false; }
+  hideMessage('introMsg');
+  return true;
+}
+function activateExamSession(){
+  if(!examActivationPending || examStartedAt || submissionCompleted || integrityTerminated) return;
+  if(CAMERA_MONITORING_MODE && !cameraMonitor.started) return;
+  examActivationPending = false;
+  hideMessage('introMsg');
+  startCountdown();
+  document.querySelectorAll('#intro input').forEach(input => { input.readOnly = true; });
+  goTo('exam');
+  startBehaviorTracking();
+  enableRealExamMode();
+}
+async function startExam(){
+  if(examStartedAt && !submissionCompleted && !integrityTerminated){
+    hideMessage('introMsg');
+    goTo('exam');
+    if(SLIDE_EXAM_MODE){
+      if(behaviorState.currentSlide >= behaviorState.questions.length){
+        showBehaviorSummary();
+      }else{
+        enterBehaviorQuestion(behaviorState.currentSlide);
+      }
+    }
+    return;
+  }
+  if(!validateIntro()) return;
+  if(!submissionId) submissionId = makeSubmissionId();
+  examActivationPending = true;
+  document.querySelectorAll('#intro input').forEach(input => { input.readOnly = true; });
+  if(CAMERA_MONITORING_MODE && !cameraMonitor.started){
+    showMessage(
+      'introMsg',
+      'Đang chờ camera sẵn sàng. Nếu Chrome hỏi quyền, em hãy chọn <b>Cho phép</b>.',
+      'warn'
+    );
+    startCameraMonitoring();
+    return;
+  }
+  await enableRealExamMode();
+  activateExamSession();
+}
+function returnToIntro(){
+  if((REAL_EXAM_MODE || CAMERA_MONITORING_MODE) && examStartedAt && !BEHAVIOR_TRACKING_MODE){
+    alert('Chế độ giám sát không cho phép sửa thông tin cá nhân sau khi đã bắt đầu làm bài.');
+    return;
+  }
+  if(BEHAVIOR_TRACKING_MODE && examStartedAt && !submissionCompleted){
+    const currentQuestion = behaviorState.questions[behaviorState.currentSlide];
+    if(currentQuestion){
+      const questionIndex = Number(currentQuestion.dataset.questionIndex || behaviorState.currentSlide + 1);
+      const answer = answerSnapshotForQuestion(currentQuestion);
+      if(answer) recordBehaviorAnswerChange(currentQuestion, answer);
+      logBehavior(
+        questionIndex,
+        'Quay lại trang thông tin cá nhân',
+        answer ? 'Đáp án hiện tại: ' + answer : ''
+      );
+    }
+    finalizeActiveBehaviorQuestion();
+  }
+  goTo('intro');
+}
+function collectAnswers(){
+  const answers = [];
+  for(let i = 1; i <= N_TN; i++){ answers.push((getRadioValue('tn' + i) || '').toUpperCase()); }
+  for(let i = 1; i <= N_DS; i++){ answers.push(collectTrueFalseAnswer(i)); }
+  for(let i = 1; i <= N_TL; i++){ answers.push(collectShortAnswer(i)); }
+  for(let i = 1; i <= N_LUAN; i++){ answers.push(value('luan' + i)); }
+  return answers;
+}
+function missingExamFields(){
+  if(SHUFFLE_QUESTIONS){
+    const missing = [];
+    document.querySelectorAll('#exam .question[data-question-type]').forEach(question => {
+      const type = String(question.dataset.questionType || '');
+      const local = Number(question.dataset.questionLocal || 0);
+      const label = String(question.dataset.questionLabel || 'Câu ' + local);
+      if(type === 'tn' && !getRadioValue('tn' + local)) missing.push(label);
+      if(type === 'ds' && !isTrueFalseComplete(local)) missing.push(label);
+      if(type === 'tl' && !collectShortAnswer(local)) missing.push(label);
+      if(type === 'luan' && !hasEssayAnswer(local)) missing.push(label);
+    });
+    return missing;
+  }
+  const missing = [];
+  for(let i = 1; i <= N_TN; i++){ if(!getRadioValue('tn' + i)) missing.push('Trắc nghiệm ' + i); }
+  for(let i = 1; i <= N_DS; i++){ if(!isTrueFalseComplete(i)) missing.push('Đúng-Sai ' + i); }
+  for(let i = 1; i <= N_TL; i++){ if(!collectShortAnswer(i)) missing.push('Trả lời ngắn ' + i); }
+  for(let i = 1; i <= N_LUAN; i++){ if(!hasEssayAnswer(i)) missing.push('Tự luận ' + i); }
+  return missing;
+}
+let submitting = false;
+function apiUrl(params={}){
+  const url = new URL(APPS_SCRIPT_URL);
+  Object.entries(params).forEach(([key, val]) => url.searchParams.set(key, String(val ?? '')));
+  return url.toString();
+}
+function waitMs(milliseconds){
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+}
+function jsonpRequest(params, timeoutMs=SUBMISSION_CONFIRM_TIMEOUT_MS){
+  return new Promise((resolve, reject) => {
+    const callbackName = '__mytexJsonp' + Date.now() + '_' + (++jsonpSequence);
+    const script = document.createElement('script');
+    let settled = false;
+    const cleanup = () => {
+      if(script.parentNode) script.parentNode.removeChild(script);
+      try{ delete window[callbackName]; }catch(_){ window[callbackName] = undefined; }
+    };
+    const finish = (handler, value) => {
+      if(settled) return;
+      settled = true;
+      clearTimeout(timer);
+      cleanup();
+      handler(value);
+    };
+    window[callbackName] = data => finish(resolve, data || {});
+    script.async = true;
+    script.onerror = () => finish(reject, new Error('Không kiểm tra được trạng thái từ máy chủ.'));
+    script.src = apiUrl({...params, callback:callbackName, _:Date.now()});
+    const timer = setTimeout(
+      () => finish(reject, new Error('Máy chủ chưa xác nhận kịp thời.')),
+      timeoutMs
+    );
+    document.head.appendChild(script);
+  });
+}
+async function postOpaque(payload){
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SUBMISSION_REQUEST_TIMEOUT_MS);
+  try{
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      cache:'no-store',
+      redirect:'follow',
+      signal:controller.signal,
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+  }finally{
+    clearTimeout(timer);
+  }
+}
+async function confirmedServerState(params, attempts=5){
+  let lastError = null;
+  for(let attempt = 0; attempt < attempts; attempt++){
+    try{
+      const result = await jsonpRequest(params);
+      if(result && result.ok && result.saved) return result;
+    }catch(error){
+      lastError = error;
+    }
+    await waitMs(700 + attempt * 500);
+  }
+  if(lastError) throw lastError;
+  return null;
+}
+function uploadFingerprint(text){
+  // Vân tay rẻ tiền để ảnh đổi sau lần nộp lỗi không dùng lại tệp cũ trên Drive.
+  let hash = 5381;
+  for(let i = 0; i < text.length; i += 97){
+    hash = ((hash * 33) ^ text.charCodeAt(i)) >>> 0;
+  }
+  return hash.toString(36) + text.length.toString(36);
+}
+function uploadReference(upload, ordinal){
+  const uploadType = String(upload.upload_type || 'essay_image');
+  const essayIndex = Number(upload.essay_index || 0);
+  const fingerprint = uploadFingerprint(String(upload.data_base64 || ''));
+  return {
+    upload_id:'u' + (ordinal + 1) + '-' + uploadType + '-' + essayIndex + '-' + fingerprint,
+    upload_type:uploadType,
+    integrity_reason:String(upload.integrity_reason || ''),
+    essay_index:essayIndex,
+    name:String(upload.name || ('bai-lam-' + (ordinal + 1) + '.jpg')),
+    mime_type:String(upload.mime_type || 'image/jpeg'),
+    size_bytes:Number(upload.size_bytes || 0)
+  };
+}
+async function stageSubmissionFiles(uploads){
+  const refs = [];
+  for(let index = 0; index < uploads.length; index++){
+    const upload = uploads[index];
+    const ref = uploadReference(upload, index);
+    setSubmitStatus(
+      '⏳ Đang tải ảnh ' + (index + 1) + '/' + uploads.length + ' và xác nhận trên Drive...',
+      'pending'
+    );
+    let saved = await confirmedServerState({
+      action:'upload_status', exam:EXAM_ID, submission_id:submissionId, upload_id:ref.upload_id
+    }, 1).catch(() => null);
+    for(let attempt = 0; !saved && attempt < 3; attempt++){
+      try{
+        await postOpaque({
+          action:'upload_submission_file',
+          exam_id:EXAM_ID,
+          mytex_exam_uid:MYTEX_EXAM_UID,
+          submission_id:submissionId,
+          upload_id:ref.upload_id,
+          file_upload:upload
+        });
+      }catch(_){
+        // Request có thể đã tới Apps Script dù trình duyệt mất phản hồi.
+      }
+      saved = await confirmedServerState({
+        action:'upload_status', exam:EXAM_ID, submission_id:submissionId, upload_id:ref.upload_id
+      }, 4).catch(() => null);
+    }
+    if(!saved) throw new Error('Máy chủ chưa xác nhận ảnh ' + (index + 1) + '.');
+    refs.push(ref);
+  }
+  return refs;
+}
+async function submitPayloadAndConfirm(payload){
+  let saved = await confirmedServerState({
+    action:'submission_status', exam:EXAM_ID, submission_id:submissionId
+  }, 1).catch(() => null);
+  for(let attempt = 0; !saved && attempt < 3; attempt++){
+    setSubmitStatus(
+      '⏳ Đang gửi và xác nhận bài làm' + (attempt ? ' (lần ' + (attempt + 1) + ')' : '') + '...',
+      'pending'
+    );
+    try{
+      await postOpaque(payload);
+    }catch(_){
+      // Luôn kiểm tra trạng thái vì Apps Script có thể đã lưu thành công.
+    }
+    saved = await confirmedServerState({
+      action:'submission_status', exam:EXAM_ID, submission_id:submissionId
+    }, 5).catch(() => null);
+  }
+  if(!saved) throw new Error('Máy chủ chưa xác nhận đã lưu bài.');
+  return saved;
+}
+function buildSubmissionPayload(fileUploadRefs=[], options={}){
+  return {
+    submission_id: submissionId || makeSubmissionId(),
+    exam_id: EXAM_ID,
+    mytex_exam_uid: MYTEX_EXAM_UID,
+    exam_title: EXAM_TITLE,
+    teacher_email: TEACHER_EMAIL,
+    student_name: value('studentName'),
+    student_school: value('studentSchool'),
+    student_class: value('studentClass'),
+    student_id: value('studentId'),
+    student_email: value('studentEmail'),
+    submitted_at: new Date().toISOString(),
+    started_at: examStartedAt ? examStartedAt.toISOString() : '',
+    duration_minutes: EXAM_DURATION_MINUTES,
+    elapsed_seconds: examStartedAt ? Math.max(0, Math.round((Date.now() - examStartedAt.getTime()) / 1000)) : 0,
+    request_result_email: SEND_RESULT_EMAIL,
+    real_exam_mode: REAL_EXAM_MODE,
+    camera_monitoring_mode: CAMERA_MONITORING_MODE,
+    behavior_tracking_mode: BEHAVIOR_TRACKING_MODE,
+    integrity_terminated: Boolean(options.integrityTerminated || integrityTerminated),
+    integrity_violation_reason: String(options.integrityViolationReason || integrityViolationReason || ''),
+    answers: collectAnswers(),
+    behavior_logs: collectBehaviorLogs(),
+    file_upload_refs: fileUploadRefs || [],
+    file_uploads: []
+  };
+}
+async function submitWork(forceSubmit=false, options={}){
+  if(submitting) return;
+  if(!validateIntro()) { goTo('intro'); return; }
+  if(SLIDE_EXAM_MODE && !forceSubmit && !isBehaviorSummaryActive()){
+    openBehaviorSummary();
+    return;
+  }
+  const missing = missingExamFields();
+  if(missing.length){
+    const preview = missing.slice(0, 6).join(', ') + (missing.length > 6 ? '...' : '');
+    showMessage('examMsg','Em còn ' + missing.length + ' câu chưa làm: <b>' + preview + '</b>. Em chắc chắn muốn nộp?','warn');
+    if(!forceSubmit && !confirm('Còn ' + missing.length + ' câu chưa trả lời. Em vẫn muốn nộp bài?')) return;
+  }
+  hideMessage('examMsg');
+  submitting = true;
+  stopCountdown();
+  stopCameraMonitoring();
+  goTo('submit');
+  setSubmitStatus('⏳ Đang chuẩn bị ảnh và gửi bài của em đến giáo viên, vui lòng đợi...', 'pending');
+  if(!submissionId) submissionId = makeSubmissionId();
+  let fileUploads = [];
+  try{
+    fileUploads = await collectFileUploads();
+  }catch(e){
+    if(options.integrityTerminated || integrityTerminated){
+      fileUploads = [];
+    }else{
+      submitting = false;
+      resumeCountdown();
+      goTo('exam');
+      showMessage('examMsg','Không thể chuẩn bị ảnh tự luận: <b>' + (e.message || 'Lỗi ảnh') + '</b>','bad');
+      return;
+    }
+  }
+  try{
+    const allUploads = [...fileUploads, ...integrityEvidenceUploads];
+    const uploadRefs = await stageSubmissionFiles(allUploads);
+    const payload = buildSubmissionPayload(uploadRefs, options);
+    await submitPayloadAndConfirm(payload);
+    submissionCompleted = true;
+    if(payload.integrity_terminated){
+      setSubmitStatus(
+        '⚠️ Bài thi đã bị dừng và nộp tự động.<br>Lý do: <b>' +
+        escapeHtml(payload.integrity_violation_reason) +
+        '</b><br>Hệ thống không gửi điểm, kết quả hoặc phiếu kết quả cho lần nộp này.<br>' +
+        'Em hãy liên hệ giáo viên để làm lại bài nghiêm túc theo hướng dẫn.',
+        'bad'
+      );
+      return;
+    }
+    const resultNote = SEND_RESULT_EMAIL
+      ? '<br>Phiếu kết quả phần khách quan sẽ được gửi tới email của em sau khi đề đóng.'
+      : '<br>Cảm ơn em, giáo viên sẽ chấm bài và phản hồi sớm nhé.';
+    setSubmitStatus('✅ Đã nộp bài thành công!' + resultNote, 'ok');
+  }catch(e){
+    const fallbackPayload = buildSubmissionPayload([], options);
+    setSubmitStatus('❌ Gửi không thành công: ' + (e.message || 'Lỗi mạng') + '.<br>Phiếu sẽ mở email dự phòng để em gửi bài.', 'bad');
+    openMailFallback(fallbackPayload);
+  }finally{
+    submitting = false;
+  }
+}
+function setSubmitStatus(text, type){
+  const el = $('submitStatus');
+  if(!el) return;
+  el.className = 'submit-status ' + (type || 'pending');
+  el.innerHTML = text;
+}
+function openMailFallback(payload){
+  if(!TEACHER_EMAIL) return;
+  const subject = '[MyTeX] ' + EXAM_TITLE + ' - ' + payload.student_name + ' - ' + payload.student_class;
+  const body = 'Họ tên: ' + payload.student_name + '\n' +
+               'Trường: ' + payload.student_school + '\n' +
+               'Lớp: ' + payload.student_class + '\n' +
+               'STT/Mã: ' + payload.student_id + '\n' +
+               'Email: ' + payload.student_email + '\n' +
+               (payload.integrity_violation_reason
+                 ? 'Cảnh báo Thi thật: ' + payload.integrity_violation_reason + '\n'
+                 : '') + '\n' +
+               'Đáp án:\n' + payload.answers.map((a, i) => 'Câu ' + (i + 1) + ': ' + a).join('\n');
+  const mailto = 'mailto:' + encodeURIComponent(TEACHER_EMAIL) +
+                 '?subject=' + encodeURIComponent(subject) +
+                 '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
+}
+</script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        macros: {
+          heva: ['\\left\\{\\begin{aligned}#1\\end{aligned}\\right.', 1],
+          hoac: ['\\left[\\begin{aligned}#1\\end{aligned}\\right.', 1],
+          vec: ['\\overrightarrow{#1}', 1],
+          vv: ['\\overrightarrow{#1}', 1]
+        }
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'mathjax-content'
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" onload="scheduleChoiceCardLayout(document, true)"></script>
+
+</body>
+</html>
